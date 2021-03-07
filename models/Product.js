@@ -32,7 +32,7 @@ const productSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId, ref: 'collections'
     },
     status: {
-        required: true;
+        required: true,
         type: String
     },
     internalNotes: {
