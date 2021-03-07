@@ -1,0 +1,20 @@
+// require mongoose
+const mongoose = require('mongoose');
+
+// create schema
+const collectectionSchema = new mongoose.Schema({
+    season: {
+        required: true,
+        enum: ['Winter', 'Summer', 'Spring', 'Autumn']
+    },
+    year: {
+        required: true,
+        type: Number
+    }
+});
+
+// create model
+const CollectionModel = mongoose.model('collections', collectionSchema);
+
+// export model
+module.exports = CollectionModel;
