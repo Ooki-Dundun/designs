@@ -3,6 +3,10 @@ const mongoose = require('mongoose');
 
 // create  schema
 const commentSchema = new mongoose.Schema({
+    product: {
+        required: true,
+        type: mongoose.Schema.Types.ObjectId, ref: 'products'
+    },
     author: {
         required: true,
         type: mongoose.Schema.Types.ObjectId, ref: 'users'
@@ -12,7 +16,7 @@ const commentSchema = new mongoose.Schema({
         type: String
     },
     date: {
-        type: date
+        type: Date
     }
 });
 

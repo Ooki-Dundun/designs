@@ -1,0 +1,23 @@
+<div class="options">
+    <a href="/head/add-product">Add a new designs</a>
+    <a href="/head/add-collection">Add or delete a collection</a>
+    <a href="/head/manage-rights">Manage editors' rights</a>
+</div>
+
+<div id="my-designs">
+    <table id="designs-table">
+        <tr>
+            <th>Most recent image</th>
+            <th>Name</th>
+            <th>edit</th>
+            <th>delete</th>
+        </tr>
+        {{#each products}}
+        <tr>
+            <td><a href="/head/product/{{this._id}}"><img src="{{this.image[this.image.length - 1]}}" alt="most recent image of {{this.name}}"></a></td>
+            <td>{{this.name}}</td>
+            <td><a href="/head/edit/{{this._id}}"></a>edit</td>
+            <td><a href="/head/delete/{{this._id}}">delete</a>delete</td>
+        </tr>
+    </table>
+</div>

@@ -5,11 +5,12 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+// set up staff router
+var staffRouter = require('./routes/staff');
 // set up editor router
-var editorRouter = require('./routes/editors');
+var editorRouter = require('./routes/editor');
 // set up admim router
-var adminRouter = require('./routes/admins');
+var adminRouter = require('./routes/head');
 // set auth router
 var authRouter = require('./routes/auth');
 
@@ -28,11 +29,12 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+// use staff router
+app.use('/staff', staffRouter);
 // use editor router
-app.use('/editors', editorRouter);
+app.use('/editor', editorRouter);
 // use admin router
-app.use('/admins', adminRouter);
+app.use('/head', adminRouter);
 // use auth router
 app.use('/auth', authRouter);
 

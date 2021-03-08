@@ -2,14 +2,14 @@
 const mongoose = require('mongoose');
 
 // create schema
-const collectectionSchema = new mongoose.Schema({
+const collectionSchema = new mongoose.Schema({
     season: {
         required: true,
         enum: ['Winter', 'Summer', 'Spring', 'Autumn']
     },
     year: {
         required: true,
-        type: Number
+        type: Date
     }
 });
 

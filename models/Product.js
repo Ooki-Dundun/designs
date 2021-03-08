@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 // create schema
 const productSchema = new mongoose.Schema({
-    Name: {
+    name: {
         required: true,
         type: String,
     },
@@ -11,10 +11,10 @@ const productSchema = new mongoose.Schema({
         required: true,
         type: mongoose.Schema.Types.ObjectId, ref: 'users'
     },
-    editors: {
+    editors: [{
         required: true,
         type: mongoose.Schema.Types.ObjectId, ref: 'users'
-    },
+    }],
     category: {
         required: true,
         enum: ['top', 'pants', 'dress', 'squirt', 'shoes', 'other']
@@ -39,10 +39,10 @@ const productSchema = new mongoose.Schema({
         required: true,
         type: String,
     },
-    image: {
+    images: [{
         required: true,
         type: String
-    }
+    }]
 });
 
 // create model

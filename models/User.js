@@ -15,18 +15,22 @@ const userSchema = new mongoose.Schema({
         required: true,
         type: String,
     },
-    password: {
-        required: true,
-        type: String,
-    },
     phoneNumber: {
         required: true,
         type: Number,
     },
-    team: {
+    password: {
         required: true,
         type: String,
+    },
+    team: {
+        type: String,
         enum: ['upcomingSeason', 'currentSeason', 'pastSeason']
+    },
+    role: {
+        type: String,
+        enum: ['headdesigner', 'editor', 'staff'],
+        default: 'staff'
     }
 });
 
