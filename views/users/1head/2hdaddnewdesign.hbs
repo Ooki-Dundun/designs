@@ -1,42 +1,64 @@
+<nav>
+{{> navbarmain}}
+<a href="/head">My page</a>
+</nav>
+
 <div>
     <form method="post" action="/head/add-product" enctype="multipart/form-data">
-        <label for="name">name of item</label>
+        <label for="name">Name</label>
         <input type="text" name='name'>
+        <label for="designer">Designer</label>
         <select name="designer">
-            {{#each headDesigners}}
+            {{#each designers}}
             <option value="{{this._id}}">{{this.firstName}} {{this.lastName}}</option>
             {{/each}}
         </select>
+        <label for="editors">Editors</label>
         <select name="editors"> <!-- 2 maximum to implement -->
-            {{#each editors}}
-            <option value="{{this._id}}">{{this.firstName}} {{this.lastName}}</option>
-            {{/each}}
-            {{#each editors}}
+            {{#each users}}
             <option value="{{this._id}}">{{this.firstName}} {{this.lastName}}</option>
             {{/each}}
         </select>
-        <label for="category">category</label>
-        <input type="text" name="category">
-        <label for="color">color</label>
+         <select name="editors">
+            {{#each users}}
+            <option value="{{this._id}}">{{this.firstName}} {{this.lastName}}</option>
+            {{/each}}
+        </select>
+         <select name="editors">
+            {{#each users}}
+            <option value="{{this._id}}">{{this.firstName}} {{this.lastName}}</option>
+            {{/each}}
+        </select>
+        <label for="category">Category</label>
+        <select name="category">
+            <option value="Top">Top</option>
+            <option value="Pants">Pants</option>
+            <option value="Dress">Dress</option>
+            <option value="Squirt">Squirt</option>
+            <option value="Shoes">Shoes</option>
+            <option value="Other">Other</option>
+        </select>
+        <label for="color">Color</label>
         <input type="text" name="color">
         <select name="material">
-            <option value="coton">coton</option>
-            <option value="silk">silk</option>
-            <option value="leather">leather</option>
-            <option value="wool">wool</option>
-            <option value="other">other</option>
+            <option value="coton">Coton</option>
+            <option value="silk">Silk</option>
+            <option value="leather">Leather</option>
+            <option value="wool">Wool</option>
+            <option value="other">Other</option>
         </select>
+        <label for="serie">Collection</label>
         <select name="serie">
             {{#each series}}
             <option value="{{this._id}}">{{this.season}} {{this.year}}</option>
             {{/each}}
         </select>
-        <label for="status">status</label>
+        <label for="status">Status</label>
         <input type="text" name="status">
-        <label for="internalNotes">internal notes</label>
+        <label for="internalNotes">Internal notes</label>
         <input type="text" name="internalNotes">
-        <label for="image">image</label>
+        <label for="image">Image</label>
         <input type="file" name="image">
-        <button type="submit">add design to database</button>
+        <button type="submit">Add design to database</button>
     </form>
 </div>

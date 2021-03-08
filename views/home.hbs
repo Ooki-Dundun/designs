@@ -1,4 +1,7 @@
-{{> navbarmainnotconnected}}
+<nav>
+{{> navbarmain}}
+<a href="/auth/signup">Sign up</a>
+</nav>
 
 <div id="log-in-container">
     <form method="post" action="/auth/log-in">
@@ -6,5 +9,6 @@
         <input type="text" name="companyEmail" placeholder="insert email" value="email@test.com">
         <label for="password">password</label>
          <input type="password" name="password" placeholder="insert password" value="1234">
+         <button>log-in</button>
     </form>
 </div>

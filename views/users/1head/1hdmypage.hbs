@@ -1,7 +1,11 @@
+<nav>
+{{> navbarmain}}
+</nav>
+
 <div class="options">
-    <a href="/head/add-product">Add a new designs</a>
-    <a href="/head/add-serie">Add or delete a serie</a>
-    <a href="/head/manage-rights">Manage editors' rights</a>
+    <a href="/head/add-product">Add a new design</a>
+    <a href="/head/series">Collections</a>
+    <a href="/head/manage-rights">Manage users' rights</a>
 </div>
 
 <div id="my-designs">
@@ -14,7 +18,11 @@
         </tr>
         {{#each products}}
         <tr>
-            <td><a href="/head/product/{{this._id}}"><img src="{{this.image[this.image.length - 1]}}" alt="most recent image of {{this.name}}"></a></td>
+            <td>
+                <a href="/head/product/{{this._id}}">
+                <img src="{{this.images.[0]}}" alt="image"
+                </a>
+            </td>
             <td>{{this.name}}</td>
             <td><a href="/head/edit/{{this._id}}"></a>edit</td>
             <td><a href="/head/delete/{{this._id}}">delete</a>delete</td>

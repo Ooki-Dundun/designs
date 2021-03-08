@@ -9,6 +9,8 @@ const hbs = require("hbs");
 // require mongoose
 require("./config/mongoose");
 
+
+
 var indexRouter = require('./routes/index');
 // set up staff router
 var staffRouter = require('./routes/staff');
@@ -28,8 +30,8 @@ app.set('view engine', 'hbs');
 hbs.registerPartials(path.join(__dirname, "views/partials"))
 
 app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.json()); // expose asynchronous posted data in req.body
+app.use(express.urlencoded({ extended: false })); // expose synchronous posted data in req.body
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 

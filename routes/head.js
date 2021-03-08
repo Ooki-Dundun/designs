@@ -3,7 +3,7 @@ var router = express.Router();
 // require product model
 const ProductModel = require('./../models/Product');
 //require serie model
-const SerieModel = require('../models/series');
+const SerieModel = require('../models/Series');
 // require user model
 const UserModel = require('./../models/User')
 // require cloudinary for file upload
@@ -20,13 +20,13 @@ router.get('/', function(req, res, next) {
 
 // get add a new design page
 router.get('/add-product', (req, res, next) => {
-  UserModel.find({role: 'headDesigner'})
-  .then((headDesigners) => {
-    UserModel.find({role: 'editor'})
-    .then((editors) => {
+  UserModel.find({role: 'Designer'})
+  .then((designers) => {
+    UserModel.find()
+    .then((users) => {
       SerieModel.find()
       .then((series) => {
-        res.render('./../views/users/1head/2hdaddnewdesign.hbs', {headDesigners, editors, series})
+        res.render('./../views/users/1head/2hdaddnewdesign.hbs', {designers, users, series})
       })
       .catch((err) => next(err))
     })
@@ -35,19 +35,25 @@ router.get('/add-product', (req, res, next) => {
 
 // get info from new design form to add new design
 router.post('/add-product', fileUploader.single('image'), (req, res, next) => {
-  const { name, designer, editors, category, color, material, serie, status, internalNotes, image } = req.body;
-  ProductModel.create({ name, designer, editors: editors.forEach(n => editors.push(n)), category, color, material, serie, status, internalNotes, images: images.push(image) })
+  const { name, designer, editors, category, color, material, serie, status, internalNotes} = req.body;
+  ProductModel.create({ name, designer, category, color, material, serie, status, internalNotes})
   .then((product) => {
-    console.log(`The following has been added to the database: ${product}`);
-    res.redirect('/head');
+    ProductModel.findByIdAndUpdate(product._id, {$push: {editors: editors}}, {new: true})
+    .then((productWithEditors) => {
+      ProductModel.findByIdAndUpdate(product._id, {$push: {images: req.file.path}}, {new: true})
+      .then((finalProduct) => {
+        console.log(`The following has been added to the database: ${finalProduct}`);
+        res.redirect('/head');
+      })
+      .catch((err) => console.log(err));
+    })
   })
-  .catch((err) => console.log(err));
 })
 
 // get add or delete a serie page
 router.get('/series', (req, res, next) => {
   SerieModel.find()
-  .then((series) => res.render('./../views/users/1head/6hdseries.hbs', {series}))
+  .then((series) => res.render('./../views/users/1head/3hdseries.hbs', {series}))
   .catch((err) => next(err))
 });
 
@@ -55,49 +61,56 @@ router.get('/series', (req, res, next) => {
 router.post('/series', (req, res, next) => {
   const { season, year } = req.body;
   SerieModel.create({ season, year})
-  .then((serie) => res.redirect('/head/serie'))
+  .then((serie) => res.redirect('/head/series'))
   .catch((err) => next(err));
 })
 
 // get information to delete serie
-router.get('/serie/:id', (req, res, next) => {
+router.get('/series/:id', (req, res, next) => {
   SerieModel.findByIdAndDelete(req.params.id)
   .then((serie) => {
     console.log('The series is no longer in the database');
-    res.redirect('/head/serie')
+    res.redirect('/head/series')
   })
   .catch((err) => next(err))
 });
 
-// get change users's rights page
-router.get('/users', (req, res, next) => {
+// get manage rights page
+router.get('/manage-rights', (req, res, next) => {
   UserModel.find()
   .then((users) => {
     ProductModel.find().populate('editors')
     .then((products) => {
-      res.render('./../views/users/1head/4changeusersrights.hbs', {users, products})
+      res.render('./../views/users/1head/4managerights.hbs', {users, products})
     })
     .catch((err) => next(err))
   })
 })
 
+// get change user's rights page
+router.get('/manage-rights/:id', (req, res, next) => {
+  UserModel.findById(req.params.id)
+  .then((user) => res.render('./../views/users/1head/6hdedituser.hbs', {user}))
+  .catch((err) => next(err))
+})
+
 // get info from change user's rights form
-router.post('/users/:id', (req, res, next) => {
-  const { role } = req.body;
-  UserModel.findByIdAndUpdate(req.params.id, ({ role }), {new: true})
+router.post('/manage-rights/:id', (req, res, next) => {
+  const { role, team } = req.body;
+  UserModel.findByIdAndUpdate(req.params.id, ({ role, team }), {new: true})
   .then((user) => {
     console.log(user);
-    res.redirect('/head/user')
+    res.redirect('/head/manage-rights')
   })
   .catch((err) => next(err))
 })
 
 //get info to delete user
-router.get('/users/delete/:id', (req, res, next) => {
+router.get('/manage-rights/delete/:id', (req, res, next) => {
   UserModel.findByIdAndDelete(req.params.id)
   .then((user) => {
     console.log(user);
-    res.redirect('/head/users')
+    res.redirect('/head/manage-rights')
   })
   .catch((err) => next(err));
 })

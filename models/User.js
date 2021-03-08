@@ -25,12 +25,13 @@ const userSchema = new mongoose.Schema({
     },
     team: {
         type: String,
-        enum: ['upcomingSeason', 'currentSeason', 'pastSeason']
+        enum: ['Upcoming', 'Past', 'Current', 'Global', 'None'],
+        default: 'None'
     },
     role: {
         type: String,
-        enum: ['headDesigner', 'editor', 'staff'],
-        default: 'staff'
+        enum: ['Designer', 'Editor', 'Staff'],
+        default: 'Staff'
     }
 });
 

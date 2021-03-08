@@ -18,7 +18,7 @@ router.post('/log-in', (req, res, next) => {
             return
         }
         if(foundUser) {
-            const isSamePassword = bcrypt.conpareSync(password, foundUser.password);
+            const isSamePassword = bcrypt.compareSync(password, foundUser.password);
             if(!isSamePassword) {
                 // if password is wrong
                 console.log('Invalid credentials');
@@ -26,14 +26,14 @@ router.post('/log-in', (req, res, next) => {
                 res.redirect('/');
             } else {
                 // if email and password are correct, authenticate the user
-                const userObject = foundUser.toObject();
+                /* const userObject = foundUser.toObject();
                 delete userObject.password; // remove password before saving user in session
                 console.log(req.session) // just to get an idea
-                req.session.currentUser = userObject; // Stores the user in the session (data server side + a cookie is sent client side)
+                req.session.currentUser = userObject; // Stores the user in the session (data server side + a cookie is sent client side) */
                 console.log("Logged in");
                 if(foundUser.type === 'staff') {
                     res.redirect('/staff')
-                } else if(founderUser.type === 'editor') {
+                } else if(foundUser.type === 'editor') {
                     res.redirect('/editor')
                 } else {
                     res.redirect('/head')
@@ -49,24 +49,31 @@ router.get('/signup', (req, res, next) => res.render('./../views/users/signup.hb
 // post sign up details
 router.post('/signup', (req, res, next) => {
     const newUser = {...req.body};
+    console.log(newUser);
     // check if user already registered
     UserModel.findOne({companyEmail: newUser.companyEmail})
-    .then((foudUser) => {
+    .then((foundUser) => {
         if (foundUser) {
             console.log('You cannot register with this email');
             res.redirect('/auth/signup');
-            return
-        }
-        if(!foundUser) {
-            const hashedPassword = bcrypt.hashSync(req.body.password, 10);
-            newUser.password = hashedPassword;
-            UserModel.create({newUser})
-            .then((newUser) => {
-                console.log("Congrats, you are now registered");
-                res.redirect("/");
-            })
-            // double check what to do with this
-            .catch((err) => next(err));
+        } else {
+            if(!foundUser) {
+                const hashedPassword = bcrypt.hashSync(req.body.password, 10);
+                newUser.password = hashedPassword;
+                UserModel.create({
+                    firstName: newUser.firstName,
+                    lastName: newUser.lastName,
+                    companyEmail: newUser.companyEmail,
+                    phoneNumber: newUser.phoneNumber,
+                    password: newUser.password
+                })
+                .then((newUser) => {
+                    console.log("Congrats, you are now registered", newUser);
+                    res.redirect("/");
+                })
+                // double check what to do with this
+                .catch((err) => next(err));
+            }
         }
     })
 })

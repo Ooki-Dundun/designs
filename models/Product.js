@@ -13,12 +13,11 @@ const productSchema = new mongoose.Schema({
     },
     editors: [{
         type: mongoose.Schema.Types.ObjectId, ref: 'users',
-        required: true
     }],
     category: {
         type: String,
         required: true,
-        enum: ['top', 'pants', 'dress', 'squirt', 'shoes', 'other']
+        enum: ['Top', 'Pants', 'Dress', 'Squirt', 'Shoes', 'Other']
     },
     color: {
         type: String,
@@ -43,7 +42,6 @@ const productSchema = new mongoose.Schema({
     },
     images: [{
         type: String,
-        required: true
     }]
 });
 

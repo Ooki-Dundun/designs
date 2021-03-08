@@ -1,0 +1,37 @@
+<nav>
+{{> navbarmain}}
+<a href="/head">My page</a>
+</nav>
+
+<div id="new-serie-container">
+    <form method="post" action="/head/series">
+        <label for="season">Season</label>
+            <select name="season">
+                <option value="Winter">Winter</option>
+                <option value="Spring">Spring</option>
+                <option value="Summer">Summer</option>
+                <option value="Autumn">Autumn</option>
+            </select>
+        <label for="year">Year</label>
+        <input type="text" name="year">
+        <button>Add new collection</button>
+    </form>
+</div>
+
+<div id="series-container">
+     <table id="series-table">
+        <tr>
+            <th>Season</th>
+            <th>Year</th>
+            <th>Delete</th>
+        </tr>
+        {{#each series}}
+        <tr>
+            <td>{{this.season}}</td>
+            <td>{{this.year}}</td>
+            <td><a href="/staff/series/{{this._id}}">Products</a></td>
+            <td><a href="/head/series/{{this._id}}">Delete</a></td>
+        </tr>
+        {{/each}}
+    </table>
+</div>

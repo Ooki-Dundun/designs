@@ -1,0 +1,33 @@
+<div id="serie-products">
+    <div>{{this.season}} {{this.year}}</div>
+      <table id="serie-products-table">
+        <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Color</th>
+            <th>Material</th>
+            <th>Status</th>
+            <th>Internal Notes</th>
+            <th>Designer</th>
+            <th>Editors</th>
+        </tr>
+        {{#each products}}
+        <tr>
+            <td>{{this.image}}</td>
+            <td>{{this.name}}</td>
+            <td>{{this.color}}</td>
+            <td>{{this.material}}</td>
+            <td>{{this.status}}</td>
+            <td>{{this.internalNotes}}</td>
+            <td>{{this.designer}}</td>
+            <td>
+                <ul>
+                    {{#each this.editors}}
+                    <li>{{this.firstName}} {{this.lastName}}</li>
+                    {{/each}}
+                </ul>
+            </td>
+        </tr>
+        {{/each}}
+    </table>
+</div>
