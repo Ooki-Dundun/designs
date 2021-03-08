@@ -1,0 +1,22 @@
+<div id="users">
+    <table id="users-table">
+        <tr>
+            <th>Full name</th>
+            <th>Team</th>
+            <th>role</th>
+            <th>can edit</th>
+            <th>edit</th>
+            <th>delete</th>
+        </tr>
+        {{#each users}}
+        <tr>
+            <td>{{this.firstName}} {{this.lastName}}</td>
+            <td>{{this.team}}</td>
+            <td>{{this.role}}</td>
+            <td>how to include this?</td>
+            <td><a href="/head/{{this._id}}">edit user's rights</a></td>
+            <td><a href="/head/delete/{{this._id}}">delete user</a></td>
+        </tr>
+        {{/each}}
+    </table>
+</div>

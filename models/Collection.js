@@ -9,7 +9,7 @@ const collectionSchema = new mongoose.Schema({
     },
     year: {
         required: true,
-        type: Date
+        type: Number
     }
 });
 
