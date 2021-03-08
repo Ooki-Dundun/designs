@@ -4,44 +4,46 @@ const mongoose = require('mongoose');
 // create schema
 const productSchema = new mongoose.Schema({
     name: {
-        required: true,
         type: String,
+        required: true
     },
     designer: {
-        required: true,
-        type: mongoose.Schema.Types.ObjectId, ref: 'users'
+        type: mongoose.Schema.Types.ObjectId, ref: 'users',
+        required: true
     },
     editors: [{
-        required: true,
-        type: mongoose.Schema.Types.ObjectId, ref: 'users'
+        type: mongoose.Schema.Types.ObjectId, ref: 'users',
+        required: true
     }],
     category: {
+        type: String,
         required: true,
         enum: ['top', 'pants', 'dress', 'squirt', 'shoes', 'other']
     },
     color: {
-        required: true,
-        type: [String]
+        type: String,
+        required: true
     },
     material: {
+        type: String,
         required: true,
         enum: ['coton', 'silk', 'leather', 'wool', 'other']
     },
-    collection: {
-        require: true,
-        type: mongoose.Schema.Types.ObjectId, ref: 'collections'
+    serie: {
+        type: mongoose.Schema.Types.ObjectId, ref: 'series',
+        required: true
     },
     status: {
-        required: true,
-        type: String
+        type: String,
+        required: true
     },
     internalNotes: {
-        required: true,
         type: String,
+        required: true
     },
     images: [{
-        required: true,
-        type: String
+        type: String,
+        required: true
     }]
 });
 

@@ -2,8 +2,8 @@ var express = require('express');
 var router = express.Router();
 // require product model
 const ProductModel = require('./../models/Product');
-//require collection model
-const CollectionModel = require('./../models/Collection');
+//require serie model
+const SerieModel = require('../models/series');
 // require user model
 const UserModel = require('./../models/User')
 // require cloudinary for file upload
@@ -24,9 +24,9 @@ router.get('/add-product', (req, res, next) => {
   .then((headDesigners) => {
     UserModel.find({role: 'editor'})
     .then((editors) => {
-      CollectionModel.find()
-      .then((collections) => {
-        res.render('./../views/users/1head/2hdaddnewdesign.hbs', {headDesigners, editors, collections})
+      SerieModel.find()
+      .then((series) => {
+        res.render('./../views/users/1head/2hdaddnewdesign.hbs', {headDesigners, editors, series})
       })
       .catch((err) => next(err))
     })
@@ -34,9 +34,9 @@ router.get('/add-product', (req, res, next) => {
 })
 
 // get info from new design form to add new design
-router.post('/add-product', fileUploader('image'), (req, res, next) => {
-  const { name, designer, editors, category, color, material, collection, status, internalNotes, image } = req.body;
-  ProductModel.create({ name, designer, editors: editors.forEach(n => editors.push(n)), category, color, material, collection, status, internalNotes, images: images.push(image) })
+router.post('/add-product', fileUploader.single('image'), (req, res, next) => {
+  const { name, designer, editors, category, color, material, serie, status, internalNotes, image } = req.body;
+  ProductModel.create({ name, designer, editors: editors.forEach(n => editors.push(n)), category, color, material, serie, status, internalNotes, images: images.push(image) })
   .then((product) => {
     console.log(`The following has been added to the database: ${product}`);
     res.redirect('/head');
@@ -44,27 +44,27 @@ router.post('/add-product', fileUploader('image'), (req, res, next) => {
   .catch((err) => console.log(err));
 })
 
-// get add or delete a collection page
-router.get('/collection', (req, res, next) => {
-  CollectionModel.find()
-  .then((collections) => res.render('./../views/users/1head/6hdcollections.hbs', {collections}))
+// get add or delete a serie page
+router.get('/series', (req, res, next) => {
+  SerieModel.find()
+  .then((series) => res.render('./../views/users/1head/6hdseries.hbs', {series}))
   .catch((err) => next(err))
 });
 
-// get add a new collection form information
-router.post('/collection', (req, res, next) => {
+// get add a new serie form information
+router.post('/series', (req, res, next) => {
   const { season, year } = req.body;
-  CollectionModel.create({ season, year})
-  .then((collection) => res.redirect('/head/collection'))
+  SerieModel.create({ season, year})
+  .then((serie) => res.redirect('/head/serie'))
   .catch((err) => next(err));
 })
 
-// get information to delete collection
-router.get('/collection/:id', (req, res, next) => {
-  CollectionModel.findByIdAndDelete(req.params.id)
-  .then((collection) => {
-    console.log(`${collection} is no longer in the database`);
-    res.redirect('/head/collection')
+// get information to delete serie
+router.get('/serie/:id', (req, res, next) => {
+  SerieModel.findByIdAndDelete(req.params.id)
+  .then((serie) => {
+    console.log('The series is no longer in the database');
+    res.redirect('/head/serie')
   })
   .catch((err) => next(err))
 });
@@ -104,7 +104,7 @@ router.get('/users/delete/:id', (req, res, next) => {
 
 // edit a product page
 router.get('/edit/:id', (req, res, next) => {
-  ProductModel.findById(req.params.id).populate('editors').populate('collection').populate('designer')
+  ProductModel.findById(req.params.id).populate('editors').populate('serie').populate('designer')
   .then((product) => {
     UserModel.find({role: 'editor'})
     .then((editors) => res.render('./../views/users/1head/5hdeditproduct.hbs', {product, editors}))
@@ -113,10 +113,10 @@ router.get('/edit/:id', (req, res, next) => {
 });
 
 // edit a product
-router.post('/edit/:id',fileUploader.single("image"), (req, res, next) => {
-  const { name, designer, editors, category, color, material, collection, status, internalNotes, image } = req.body;
+router.post('/edit/:id', fileUploader.single("image"), (req, res, next) => {
+  const { name, designer, editors, category, color, material, serie, status, internalNotes, image } = req.body;
   ProductModel.findByIdAndUpdate(req.params.id, {new: true}, {
-    name, designer, editors: editors.forEach(n => editors.push(n)), category, color, material, collection, status, internalNotes,
+    name, designer, editors: editors.forEach(n => editors.push(n)), category, color, material, serie, status, internalNotes,
     images: images.push(image)
   })
 })

@@ -2,8 +2,9 @@
 const mongoose = require('mongoose');
 
 // create schema
-const collectionSchema = new mongoose.Schema({
+const serieSchema = new mongoose.Schema({
     season: {
+        type: String,
         required: true,
         enum: ['Winter', 'Summer', 'Spring', 'Autumn']
     },
@@ -14,7 +15,7 @@ const collectionSchema = new mongoose.Schema({
 });
 
 // create model
-const CollectionModel = mongoose.model('collections', collectionSchema);
+const SerieModel = mongoose.model('series', serieSchema);
 
 // export model
-module.exports = CollectionModel;
+module.exports = SerieModel;

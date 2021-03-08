@@ -3,6 +3,11 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+// require hbs
+const hbs = require("hbs");
+
+// require mongoose
+require("./config/mongoose");
 
 var indexRouter = require('./routes/index');
 // set up staff router

@@ -1,14 +1,15 @@
 <div id="sign-up-container">
-    <form action="/auth/signup">
+    <form method="post" action="/auth/signup">
         <label for="firstName">first name</label>
         <input type="text" name="firstName">
         <label for="lastName">last name</label>
         <input type="text" name="lastName">
-        <label for="companyEmail">compamy email</label>
+        <label for="companyEmail">company email</label>
         <input type="text" name="companyEmail">
         <label for="phoneNUmber">phone number</label>
-        <input type="number" name="phoneNumber">
+        <input type="string" name="phoneNumber">
         <label for="password">password</label>
         <input type="password" name="password">
+        <button>register</button>
     </form>
 </div>
