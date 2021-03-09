@@ -79,10 +79,14 @@ router.post('/series', (req, res, next) => {
 router.get('/series/:id', (req, res, next) => {
   SerieModel.findByIdAndDelete(req.params.id)
   .then((serie) => {
-    console.log('The series is no longer in the database');
-    res.redirect('/head/series')
+    // delete models from serie
+    ProductModel.deleteMany({serie: serie})
+    .then((products) => {
+      console.log('The series is no longer in the database');
+      res.redirect('/head/series')
+    })
+    .catch((err) => next(err))
   })
-  .catch((err) => next(err))
 });
 
 // get manage rights page
