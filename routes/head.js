@@ -8,10 +8,11 @@ const SerieModel = require('../models/Series');
 const UserModel = require('./../models/User')
 // require cloudinary for file upload
 const fileUploader = require("./../config/cloudinary");
+const { array } = require('./../config/cloudinary');
 
 // get head designer main page
 router.get('/', function(req, res, next) {
-  ProductModel.find()
+  ProductModel.find().populate('editors').populate('serie')
   .then((products) => {
   res.render('./../views/users/1head/1hdmypage.hbs', {products});
   })
@@ -106,12 +107,18 @@ router.get('/manage-rights/:id', (req, res, next) => {
 // get info from change user's rights form
 router.post('/manage-rights/:id', (req, res, next) => {
   const { role, team } = req.body;
+  // change role of user
   UserModel.findByIdAndUpdate(req.params.id, ({ role, team }), {new: true})
   .then((user) => {
     console.log(user);
-    res.redirect('/head/manage-rights')
+    // remove user id from relevant product.editors
+    ProductModel.findOneAndUpdate({editors: user._id}, {$pull: {editors: user._id}}, {new: true})
+    .then((product) => {
+      console.log(product)
+      res.redirect('/head/manage-rights')
+    })
+    .catch((err) => next(err))
   })
-  .catch((err) => next(err))
 })
 
 //get info to delete user
@@ -154,17 +161,34 @@ router.post('/edit-product/:id', fileUploader.single("image"), (req, res, next) 
     const editorPromise = updateEditorsOfProduct(req.params.id, editorsToPush)
     editorPromise
     .then((editedProductWithEditors) => {
-      // push image to array of images
-      const imagePromise = addImageOfProduct(req.params.id, req.file.path);
-      imagePromise
-      .then((editedProductWithEditorsAndImage) => {
-        console.log(editedProductWithEditorsAndImage);
-        res.redirect('/head')
+      console.log('editedProductWithEditors', editedProductWithEditors)
+      // filter double editors
+      // create an array with single editors only
+      const singleEditors = editedProductWithEditors.editors.filter((ed, i) => editedProductWithEditors.editors.indexOf(ed) === i)
+      console.log('SE', singleEditors)
+      // delete all editors from product
+      const deleteEditorsPromise = deleteEditors(req.params.id, editedProductWithEditors);
+      deleteEditorsPromise
+      .then((productWithNoEditors) => {
+        console.log('pwne', productWithNoEditors);
+        const singleEditorsPromise = includeSingleEditors(req.params.id, singleEditors)
+        // add array of single editors to product.editors
+        singleEditorsPromise
+        .then((productWithSingleEditors) => {
+          console.log('pwse', productWithSingleEditors)
+          // push image to array of images
+          const imagePromise = addImageOfProduct(req.params.id, req.file.path);
+          imagePromise
+          .then((finalProduct) => {
+            console.log(finalProduct);
+            res.redirect('/head')
+          })
+          .catch((err) => next(err))
+        })
       })
-      .catch((err) => next(err))
     })
   })
-});
+})
 
 // delete a product
 router.get('/delete-product/:id', (req, res, next) => {
@@ -176,6 +200,8 @@ router.get('/delete-product/:id', (req, res, next) => {
   .catch((err) => next(err));
 });
 
+//helpers
+
 function filterNotApplicableEditors(formInputArray) {
   const editorsToPush = [];
   formInputArray.forEach((ed) => {
@@ -186,6 +212,7 @@ function filterNotApplicableEditors(formInputArray) {
 return editorsToPush
 }
 
+// update role tu editor when editor is added for product
 function updateRoleToEditor(usersArray) {
   const newArray = usersArray.forEach((editor) => {
       UserModel.findByIdAndUpdate(editor, {role: "Editor"}, {new: true})
@@ -194,11 +221,25 @@ function updateRoleToEditor(usersArray) {
     return newArray
 }
 
+// update editors of products when editor is added for product
 function updateEditorsOfProduct(id, editorsIds){
   const editorPromise = ProductModel.findByIdAndUpdate(id, {$push: {editors: editorsIds}}, {new:true});
   return editorPromise;
 }
 
+// delete editors double in product.editors
+function deleteEditors(id, product) {
+  const deleteEditors = ProductModel.findByIdAndUpdate(id, {$pullAll: {editors: product.editors}}, {new: true})
+  return deleteEditors;
+}
+    
+    
+function includeSingleEditors(id, singleEditors) {
+  const singleEditorsPromise = ProductModel.findByIdAndUpdate(id, {editors: singleEditors})
+  return singleEditorsPromise
+}
+
+// add image to product
 function addImageOfProduct(id, imagePath){
   const imagePromise = ProductModel.findByIdAndUpdate(id, {$push: {images: imagePath}}, {new: true});
   return imagePromise;

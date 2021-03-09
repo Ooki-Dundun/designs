@@ -11,20 +11,20 @@
         <select name="designer">
             <option value="{{product.designer._id}}">{{product.designer.firstName}} {{product.designer.lastName}}</option>
         </select>
-        <label for="editors">Editors</label>
-         <select name="editors"> <!-- 2 maximum to implement -->
+        <label for="editors">Add new editors</label>
+         <select name="editors">
             {{#each users}}
             <option value="{{this._id}}">{{this.firstName}} {{this.lastName}}</option>
             {{/each}}
             <option value="n/a">Not applicable</option>
         </select>
-        <select name="editors"> <!-- 2 maximum to implement -->
+        <select name="editors">
             {{#each users}}
             <option value="{{this._id}}">{{this.firstName}} {{this.lastName}}</option>
             {{/each}}
             <option value="n/a">Not applicable</option>
         </select>
-        <select name="editors"> <!-- 2 maximum to implement -->
+        <select name="editors">
             {{#each users}}
             <option value="{{this._id}}">{{this.firstName}} {{this.lastName}}</option>
             {{/each}}
