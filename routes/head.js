@@ -36,21 +36,13 @@ router.get('/add-product', (req, res, next) => {
 // get info from new design form to add new design
 router.post('/add-product', fileUploader.single('image'), (req, res, next) => {
   const { name, designer, editors, category, color, material, serie, status, internalNotes} = req.body;
-  const editorsToPush = [];
-  editors.forEach((ed) => {
-    if(ed !== 'n/a') {
-      editorsToPush.push(ed)
-    }
-  })
-  editorsToPush.forEach((newEd) => {
-    if(newEd.role !== "Editor") {
-    UserModel.findByIdAndUpdate(newEd, {role: "Editor"}, {new: true})
-    .then((users) => console.log(users))
-    }
-  })
+  // editors should only contain ids of actual users: make sure n/a will not be pushed to editors' array
+  const editorsToPush = filterNotApplicable(editors);
+  // update role of users that have been selected as editors from "staff" to "editor"
+  const newEditorsToPush = updateRoleToEditor(editorsToPush);
   ProductModel.create({ name, designer, category, color, material, serie, status, internalNotes})
   .then((product) => {
-    ProductModel.findByIdAndUpdate(product._id, {$push: {editors: editorsToPush}}, {new: true})
+    ProductModel.findByIdAndUpdate(product._id, {$push: {editors: newEditorsToPush}}, {new: true})
     .then((productWithEditors) => {
       ProductModel.findByIdAndUpdate(product._id, {$push: {images: req.file.path}}, {new: true})
       .then((finalProduct) => {
