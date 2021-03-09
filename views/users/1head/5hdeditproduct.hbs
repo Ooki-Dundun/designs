@@ -4,7 +4,7 @@
 </nav>
 
 <div>
-    <form method="post" action="/head/edit-product:{{product._id}}" enctype="multipart/form-data">
+    <form method="post" action="/head/edit-product/{{product._id}}" enctype="multipart/form-data">
         <label for="name">Name</label>
         <input type="text" name='name' value="{{product.name}}">
         <label for="designer">Designer</label>
@@ -12,12 +12,24 @@
             <option value="{{product.designer._id}}">{{product.designer.firstName}} {{product.designer.lastName}}</option>
         </select>
         <label for="editors">Editors</label>
-        {{#each users}}
-        <select name="editors">
+         <select name="editors"> <!-- 2 maximum to implement -->
+            {{#each users}}
             <option value="{{this._id}}">{{this.firstName}} {{this.lastName}}</option>
+            {{/each}}
             <option value="n/a">Not applicable</option>
         </select>
-        {{/each}}
+        <select name="editors"> <!-- 2 maximum to implement -->
+            {{#each users}}
+            <option value="{{this._id}}">{{this.firstName}} {{this.lastName}}</option>
+            {{/each}}
+            <option value="n/a">Not applicable</option>
+        </select>
+        <select name="editors"> <!-- 2 maximum to implement -->
+            {{#each users}}
+            <option value="{{this._id}}">{{this.firstName}} {{this.lastName}}</option>
+            {{/each}}
+            <option value="n/a">Not applicable</option>
+        </select>
         <label for="category">Category</label>
         <select name="category">
             <option value="Top">Top</option>

@@ -37,14 +37,19 @@ router.get('/add-product', (req, res, next) => {
 router.post('/add-product', fileUploader.single('image'), (req, res, next) => {
   const { name, designer, editors, category, color, material, serie, status, internalNotes} = req.body;
   // editors should only contain ids of actual users: make sure n/a will not be pushed to editors' array
-  const editorsToPush = filterNotApplicable(editors);
-  // update role of users that have been selected as editors from "staff" to "editor"
-  const newEditorsToPush = updateRoleToEditor(editorsToPush);
+  const editorsToPush = filterNotApplicableEditors(editors);
+  console.log('editorsToPush', editorsToPush)
+  // update role of users that have been selected as editors from "Staff" to "Editor"
+  updateRoleToEditor(editorsToPush);
   ProductModel.create({ name, designer, category, color, material, serie, status, internalNotes})
   .then((product) => {
-    ProductModel.findByIdAndUpdate(product._id, {$push: {editors: newEditorsToPush}}, {new: true})
+    // push editors to array of editors
+    const editorPromise = updateEditorsOfProduct(product._id, editorsToPush)
+    editorPromise
     .then((productWithEditors) => {
-      ProductModel.findByIdAndUpdate(product._id, {$push: {images: req.file.path}}, {new: true})
+      // push images to array of images
+      const imagePromise = addImageOfProduct(product._id, req.file.path);
+      imagePromise
       .then((finalProduct) => {
         console.log(`The following has been added to the database: ${finalProduct}`);
         res.redirect('/head');
@@ -122,7 +127,7 @@ router.get('/manage-rights/delete/:id', (req, res, next) => {
 
 
 // edit a product page
-router.get('/edit/:id', (req, res, next) => {
+router.get('/edit-product/:id', (req, res, next) => {
   ProductModel.findById(req.params.id).populate('designer')
   .then((product) => {
     UserModel.find()
@@ -137,22 +142,32 @@ router.get('/edit/:id', (req, res, next) => {
 });
 
 // edit a product
-router.post('/edit/:id', fileUploader.single("image"), (req, res, next) => {
-  const { name, designer, inputEditors, category, color, material, serie, status, internalNotes, image } = req.body;
-  ProductModel.findByIdAndUpdate(req.params.id, {new: true}, {
-    name, designer, 
-    editors: inputEditors.forEach((editor) => {
-      if(editor !== "n/a") {
-        editors.push(editor)
-      }
-    }), 
-    category, color, material, serie, status, internalNotes,
-    images: images.push(image)
+router.post('/edit-product/:id', fileUploader.single("image"), (req, res, next) => {
+  const { name, designer, editors, category, color, material, serie, status, internalNotes } = req.body;
+  // editors should only contain ids of actual users: make sure n/a will not be pushed to editors' array
+  const editorsToPush = filterNotApplicableEditors(editors);
+  // update role of users that have been selected as editors from "Staff" to "Editor"
+  updateRoleToEditor(editorsToPush);
+  ProductModel.findByIdAndUpdate(req.params.id, { name, designer, category, color, material, serie, status, internalNotes}, {new: true})
+  .then((editedProduct) => {
+    // push editors to array of editors
+    const editorPromise = updateEditorsOfProduct(req.params.id, editorsToPush)
+    editorPromise
+    .then((editedProductWithEditors) => {
+      // push image to array of images
+      const imagePromise = addImageOfProduct(req.params.id, req.file.path);
+      imagePromise
+      .then((editedProductWithEditorsAndImage) => {
+        console.log(editedProductWithEditorsAndImage);
+        res.redirect('/head')
+      })
+      .catch((err) => next(err))
+    })
   })
-})
+});
 
 // delete a product
-router.get('/delete/:id', (req, res, next) => {
+router.get('/delete-product/:id', (req, res, next) => {
   ProductModel.findByIdAndDelete(req.params.id)
   .then((product) => {
     console.log('The design is no longer in the database');
@@ -160,5 +175,33 @@ router.get('/delete/:id', (req, res, next) => {
   })
   .catch((err) => next(err));
 });
+
+function filterNotApplicableEditors(formInputArray) {
+  const editorsToPush = [];
+  formInputArray.forEach((ed) => {
+  if(ed !== 'n/a') {
+      editorsToPush.push(ed)
+  }
+})
+return editorsToPush
+}
+
+function updateRoleToEditor(usersArray) {
+  const newArray = usersArray.forEach((editor) => {
+      UserModel.findByIdAndUpdate(editor, {role: "Editor"}, {new: true})
+      .then((users) => console.log(users))
+    })
+    return newArray
+}
+
+function updateEditorsOfProduct(id, editorsIds){
+  const editorPromise = ProductModel.findByIdAndUpdate(id, {$push: {editors: editorsIds}}, {new:true});
+  return editorPromise;
+}
+
+function addImageOfProduct(id, imagePath){
+  const imagePromise = ProductModel.findByIdAndUpdate(id, {$push: {images: imagePath}}, {new: true});
+  return imagePromise;
+}
 
 module.exports = router;

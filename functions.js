@@ -1,4 +1,4 @@
-function filterNotApplicable(formInputArray) {
+function filterNotApplicableEditors(formInputArray) {
     const editorsToPush = [];
     formInputArray.forEach((ed) => {
     if(ed !== 'n/a') {

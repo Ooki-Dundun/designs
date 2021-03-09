@@ -2,7 +2,7 @@
     <div>{{this.season}} {{this.year}}</div>
       <table id="serie-products-table">
         <tr>
-            <th>Image</th>
+            <th>Images</th>
             <th>Name</th>
             <th>Color</th>
             <th>Material</th>
@@ -19,7 +19,8 @@
             <td>{{this.material}}</td>
             <td>{{this.status}}</td>
             <td>{{this.internalNotes}}</td>
-            <td>{{this.designer}}</td>
+            <td>{{this.designer.firstName}} {{this.designer.lastName}}</td>
+            <td>{{this.editors}}</td>
             <td>
                 <ul>
                     {{#each this.editors}}
