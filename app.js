@@ -6,6 +6,10 @@ var logger = require('morgan');
 // require hbs
 const hbs = require("hbs");
 
+// register hns helpers
+// helper to display last value of array
+hbs.registerHelper("last", (array) => array[(array.length - 1)]);
+
 // require mongoose
 require("./config/mongoose");
 
