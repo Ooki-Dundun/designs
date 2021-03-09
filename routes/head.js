@@ -3,7 +3,7 @@ var router = express.Router();
 // require product model
 const ProductModel = require('./../models/Product');
 //require serie model
-const SerieModel = require('../models/Series');
+const SerieModel = require('../models/Serie');
 // require user model
 const UserModel = require('./../models/User')
 // require cloudinary for file upload
@@ -86,8 +86,7 @@ router.get('/series/:id', (req, res, next) => {
       res.redirect('/head/series')
     })
     .catch((err) => next(err))
-  })
-});
+  })});
 
 // get manage rights page
 router.get('/manage-rights', (req, res, next) => {

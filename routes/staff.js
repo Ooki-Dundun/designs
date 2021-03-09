@@ -3,16 +3,24 @@ var router = express.Router();
 // require products model
 const ProductModel = require('./../models/Product');
 // require collection model
-const SerieModel = require('../models/Series');
+const SerieModel = require('../models/Serie');
 
 // get products
 router.get('/', (req, res, next) => {
-  ProductModel.find()
+  ProductModel.find().populate('editors').populate('designer').populate('serie')
   .then((products) => {
     res.render('./../views/users/3staff/1seealldesigns.hbs', {products});
   })
   .catch((err) => next(err));
 });
+
+// get series
+router.get('/series', (req, res, next) => {
+  SerieModel.find()
+  .then((series) => res.render('./../views/users/3staff/5seeallseries.hbs', {series}))
+  .catch((err) => next(err))
+});
+
 
 // get the search product(s) page
 router.get('/search', (req, res, next) => {

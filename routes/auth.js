@@ -5,43 +5,6 @@ const UserModel = require('./../models/User')
 // require bcrypt to encrypt data
 const bcrypt = require("bcrypt"); // lib to encrypt data
 
-// post log-in details
-router.post('/log-in', (req, res, next) => {
-    const { companyEmail, password } = req.body;
-    UserModel.findOne({companyEmail: companyEmail})
-    .then((foundUser) => {
-        // if email not registered
-        if(!foundUser) {
-            console.log('Invalid credentials')
-            // redirect to home page
-            res.redirect('/');
-            return
-        }
-        if(foundUser) {
-            const isSamePassword = bcrypt.compareSync(password, foundUser.password);
-            if(!isSamePassword) {
-                // if password is wrong
-                console.log('Invalid credentials');
-                // redirect to home page
-                res.redirect('/');
-            } else {
-                // if email and password are correct, authenticate the user
-                /* const userObject = foundUser.toObject();
-                delete userObject.password; // remove password before saving user in session
-                console.log(req.session) // just to get an idea
-                req.session.currentUser = userObject; // Stores the user in the session (data server side + a cookie is sent client side) */
-                console.log("Logged in");
-                if(foundUser.type === 'staff') {
-                    res.redirect('/staff')
-                } else if(foundUser.type === 'editor') {
-                    res.redirect('/editor')
-                } else {
-                    res.redirect('/head')
-                }
-            }
-        }
-    })
-});
 
 // get sign up page 
 router.get('/signup', (req, res, next) => res.render('./../views/users/signup.hbs'))
@@ -77,5 +40,45 @@ router.post('/signup', (req, res, next) => {
         }
     })
 })
+
+// post log-in details
+router.post('/log-in', (req, res, next) => {
+    const { companyEmail, password } = req.body;
+    UserModel.findOne({companyEmail: companyEmail})
+    .then((foundUser) => {
+        // if email not registered
+        if(!foundUser) {
+            console.log('Invalid credentials')
+            // redirect to home page
+            res.redirect('/');
+            return
+        }
+        if(foundUser) {
+            const isSamePassword = bcrypt.compareSync(password, foundUser.password);
+            if(!isSamePassword) {
+                // if password is wrong
+                console.log('Invalid credentials');
+                // redirect to home page
+                res.redirect('/');
+            } else {
+                // if email and password are correct, authenticate the user
+                /* const userObject = foundUser.toObject();
+                delete userObject.password; // remove password before saving user in session
+                console.log(req.session) // just to get an idea
+                req.session.currentUser = userObject; // Stores the user in the session (data server side + a cookie is sent client side) */
+                console.log("Logged in");
+                if(foundUser.role === 'Staff') {
+                    res.redirect('/staff')
+                } else if(foundUser.role === 'Editor') {
+                    res.redirect('/editor')
+                } else {
+                    res.redirect('/head')
+                }
+            }
+        }
+    })
+});
+
+//log out
 
 module.exports = router;

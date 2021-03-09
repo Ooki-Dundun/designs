@@ -1,13 +1,4 @@
-<nav>
-    {{> navbarmain}}
-</nav>
-
-<div class="options">
-    <a href="/staff/series">Collections</a>
-    <a href="/editor/60468af867ec0da20b385737/my-products">My products</a>
-    <a href="/editor/60468af867ec0da20b385737/collections">My collections</a>
-</div>
-
+<h1>My products</h1>
 <div id="my-designs">
     <table id="designs-table">
         <tr>
@@ -40,6 +31,7 @@
                     {{/each}}
                 </ul>
             </td>
+            <td><a href="/editor/edit-product/{{this._id}}">edit</a></td>
         </tr>
         {{/each}}
     </table>

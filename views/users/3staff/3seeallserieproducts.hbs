@@ -1,5 +1,5 @@
 <div id="serie-products">
-    <div>{{this.season}} {{this.year}}</div>
+    <div>{{serie.season}} {{serie.year}}</div>
       <table id="serie-products-table">
         <tr>
             <th>Images</th>
@@ -13,14 +13,13 @@
         </tr>
         {{#each products}}
         <tr>
-            <td>{{this.image}}</td>
+            <td><img src="{{last this.images}}" alt="most recent image"></td>
             <td>{{this.name}}</td>
             <td>{{this.color}}</td>
             <td>{{this.material}}</td>
             <td>{{this.status}}</td>
             <td>{{this.internalNotes}}</td>
             <td>{{this.designer.firstName}} {{this.designer.lastName}}</td>
-            <td>{{this.editors}}</td>
             <td>
                 <ul>
                     {{#each this.editors}}

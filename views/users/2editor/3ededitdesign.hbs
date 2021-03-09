@@ -1,1 +1,37 @@
-e
+<nav>
+{{> navbarmain}}
+<a href="/">My page change as necessary</a>
+</nav>
+
+<div>
+    <form method="post" action="/editor/edit-product/{{product._id}}" enctype="multipart/form-data">
+        <label for="name">Name</label>
+        <input type="text" name='name' value="{{product.name}}">
+        <label for="category">Category</label>
+        <select name="category">
+            <option value="Top">Top</option>
+            <option value="Pants">Pants</option>
+            <option value="Dress">Dress</option>
+            <option value="Squirt">Squirt</option>
+            <option value="Shoes">Shoes</option>
+            <option value="Other">Other</option>
+        </select>
+        <label for="color">Color</label>
+        <input type="text" name="color" value="{{product.color}}">
+        <select name="material">
+            <option value="coton">Coton</option>
+            <option value="silk">Silk</option>
+            <option value="leather">Leather</option>
+            <option value="wool">Wool</option>
+            <option value="other">Other</option>
+        </select>
+        <label for="serie">Collection</label>
+        <label for="status">Status</label>
+        <input type="text" name="status" value="{{product.status}}">
+        <label for="internalNotes">Internal notes</label>
+        <input type="text" name="internalNotes" value="{{product.internalNotes}}">
+        <label for="image">Image</label>
+        <input type="file" name="image">
+        <button type="submit">Update information</button>
+    </form>
+</div>

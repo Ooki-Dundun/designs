@@ -1,0 +1,21 @@
+<nav>
+{{> navbarmain}}
+<a href="/head">change to have appropriate link to my page</a>
+</nav>
+
+<div id="series-container">
+     <table id="series-table">
+        <tr>
+            <th>Season</th>
+            <th>Year</th>
+            <th>Products</th>
+        </tr>
+        {{#each series}}
+        <tr>
+            <td>{{this.season}}</td>
+            <td>{{this.year}}</td>
+            <td><a href="/staff/series/{{this._id}}">Products</a></td>
+        </tr>
+        {{/each}}
+    </table>
+</div>

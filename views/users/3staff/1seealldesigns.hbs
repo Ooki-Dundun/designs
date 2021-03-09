@@ -1,7 +1,46 @@
-<div id="search-one-products">
-<a href="/staff/search"></a>
+<nav>
+    {{> navbarmain}}
+    <a href="">add relevant link for my page
+    </a>
+</nav>
+
+<div class="options">
+    <a href="/staff/series">Collections</a>
 </div>
 
 <div id="all-products-container">
-
+    <table id="designs-table">
+        <tr>
+            <th>Most recent image</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Collection</th>
+            <th>Material</th>
+            <th>Color</th>
+            <th>Status</th>
+            <th>Editors</th>
+        </tr>
+        {{#each products}}
+        <tr>
+            <td>
+                <a href="/staff/product/{{this._id}}">
+                <img src="{{last this.images}}" alt="image"
+                </a>
+            </td>
+            <td>{{this.name}}</td>
+            <td>{{this.category}}</td>
+            <td>{{this.serie.season}} {{this.serie.year}}</td>
+            <td>{{this.material}}</td>
+            <td>{{this.color}}</td>
+            <td>{{this.status}}</td>
+            <td>
+                <ul>
+                    {{#each this.editors}}
+                    <li>{{this.firstName}} {{this.lastName}}</li>
+                    {{/each}}
+                </ul>
+            </td>
+        </tr>
+        {{/each}}
+    </table>
 </div>
