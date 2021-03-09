@@ -19,6 +19,13 @@ router.get('/search', (req, res, next) => {
   res.render('./../views/users/3staff/2searchproducts.hbs')
 })
 
+//display one product
+router.get('/product/:id', (req, res, next) => {
+  ProductModel.findById(req.params.id).populate('editors').populate('serie')
+  .then((product) => res.render('./../views/users/3staff/4productinfo.hbs', {product}))
+  .catch((err) => next(err));
+})
+
 // get the search products info
 router.post('/search', (req, res, next) => {
   // search by name or other criterion

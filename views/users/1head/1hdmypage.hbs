@@ -19,13 +19,13 @@
         {{#each products}}
         <tr>
             <td>
-                <a href="/head/product/{{this._id}}">
+                <a href="/staff/product/{{this._id}}">
                 <img src="{{this.images.[0]}}" alt="image"
                 </a>
             </td>
             <td>{{this.name}}</td>
-            <td><a href="/head/edit/{{this._id}}"></a>edit</td>
-            <td><a href="/head/delete/{{this._id}}">delete</a>delete</td>
+            <td><a href="/head/edit/{{this._id}}">edit</a></td>
+            <td><a href="/head/delete/{{this._id}}">delete</a></td>
         </tr>
         {{/each}}
     </table>

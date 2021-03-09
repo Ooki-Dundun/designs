@@ -1,0 +1,28 @@
+<h1>Product Information</h1>
+
+<div id="product-info-container">
+    <div>Images
+        {{#each product.images}}
+        <img src="{{this}}" alt="image">
+        {{/each}}
+    </div>
+    <div>Desription
+        <ul>
+            <li>Name: {{product.name}}</li>
+            <li>Designer: {{product.designer}}</li>
+            <li>Editors:
+                <ul>
+                    {{#each product.editors}}
+                    <li>{{this.firstName}} {{this.lastName}}</li>
+                    {{/each}}
+                </ul>
+            </li>
+            <li>Category: {{product.category}}</li>
+            <li>Color: {{product.color}}</li>
+            <li>Material: {{product.material}}</li>
+            <li>Collection: {{product.serie.season}} {{product.serie.year}}</li>
+            <li>Status: {{product.status}}</li>
+            <li>Internal notes: {{product.internalNotes}}</li>
+        </ul>
+    </div>
+</div>

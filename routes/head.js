@@ -36,9 +36,21 @@ router.get('/add-product', (req, res, next) => {
 // get info from new design form to add new design
 router.post('/add-product', fileUploader.single('image'), (req, res, next) => {
   const { name, designer, editors, category, color, material, serie, status, internalNotes} = req.body;
+  const editorsToPush = [];
+  editors.forEach((ed) => {
+    if(ed !== 'n/a') {
+      editorsToPush.push(ed)
+    }
+  })
+  editorsToPush.forEach((newEd) => {
+    if(newEd.role !== "Editor") {
+    UserModel.findByIdAndUpdate(newEd, {role: "Editor"}, {new: true})
+    .then((users) => console.log(users))
+    }
+  })
   ProductModel.create({ name, designer, category, color, material, serie, status, internalNotes})
   .then((product) => {
-    ProductModel.findByIdAndUpdate(product._id, {$push: {editors: editors}}, {new: true})
+    ProductModel.findByIdAndUpdate(product._id, {$push: {editors: editorsToPush}}, {new: true})
     .then((productWithEditors) => {
       ProductModel.findByIdAndUpdate(product._id, {$push: {images: req.file.path}}, {new: true})
       .then((finalProduct) => {
@@ -48,7 +60,7 @@ router.post('/add-product', fileUploader.single('image'), (req, res, next) => {
       .catch((err) => console.log(err));
     })
   })
-})
+});
 
 // get add or delete a serie page
 router.get('/series', (req, res, next) => {
@@ -115,21 +127,34 @@ router.get('/manage-rights/delete/:id', (req, res, next) => {
   .catch((err) => next(err));
 })
 
+
+
 // edit a product page
 router.get('/edit/:id', (req, res, next) => {
-  ProductModel.findById(req.params.id).populate('editors').populate('serie').populate('designer')
+  ProductModel.findById(req.params.id).populate('designer')
   .then((product) => {
-    UserModel.find({role: 'editor'})
-    .then((editors) => res.render('./../views/users/1head/5hdeditproduct.hbs', {product, editors}))
-    .catch((err) => next(err))
+    UserModel.find()
+    .then((users) => {
+      SerieModel.find()
+      .then((series) => {
+        res.render('./../views/users/1head/5hdeditproduct.hbs', {product, users, series})
+      })
+      .catch((err) => next(err))
+    })
   })
 });
 
 // edit a product
 router.post('/edit/:id', fileUploader.single("image"), (req, res, next) => {
-  const { name, designer, editors, category, color, material, serie, status, internalNotes, image } = req.body;
+  const { name, designer, inputEditors, category, color, material, serie, status, internalNotes, image } = req.body;
   ProductModel.findByIdAndUpdate(req.params.id, {new: true}, {
-    name, designer, editors: editors.forEach(n => editors.push(n)), category, color, material, serie, status, internalNotes,
+    name, designer, 
+    editors: inputEditors.forEach((editor) => {
+      if(editor !== "n/a") {
+        editors.push(editor)
+      }
+    }), 
+    category, color, material, serie, status, internalNotes,
     images: images.push(image)
   })
 })
