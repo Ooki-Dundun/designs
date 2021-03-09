@@ -111,10 +111,11 @@ router.post('/manage-rights/:id', (req, res, next) => {
   UserModel.findByIdAndUpdate(req.params.id, ({ role, team }), {new: true})
   .then((user) => {
     console.log(user);
-    // remove user id from relevant product.editors
-    ProductModel.findOneAndUpdate({editors: user._id}, {$pull: {editors: user._id}}, {new: true})
-    .then((product) => {
-      console.log(product)
+    // remove user id from relevant product.
+    const removeUserIdFromEditors = removeUserIdFromProductsEditors(req.params.id);
+    removeUserIdFromEditors
+    .then((products) => {
+      console.log(products)
       res.redirect('/head/manage-rights')
     })
     .catch((err) => next(err))
@@ -233,7 +234,7 @@ function deleteEditors(id, product) {
   return deleteEditors;
 }
     
-    
+// include singleEditors array in product.editors
 function includeSingleEditors(id, singleEditors) {
   const singleEditorsPromise = ProductModel.findByIdAndUpdate(id, {editors: singleEditors})
   return singleEditorsPromise
@@ -243,6 +244,12 @@ function includeSingleEditors(id, singleEditors) {
 function addImageOfProduct(id, imagePath){
   const imagePromise = ProductModel.findByIdAndUpdate(id, {$push: {images: imagePath}}, {new: true});
   return imagePromise;
+}
+
+// remove user id from relevant product
+function removeUserIdFromProductsEditors(userId) {
+  const removeUserIdPromise = ProductModel.updateMany({editors: userId}, {$pull: {editors: userId}}, {new: true})
+  return removeUserIdPromise
 }
 
 module.exports = router;
