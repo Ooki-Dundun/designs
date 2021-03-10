@@ -29,6 +29,7 @@ const adminRouter = require('./routes/head');
 // set auth router
 const authRouter = require('./routes/auth');
 
+
 const app = express();
 
 // view engine setup
@@ -69,6 +70,9 @@ app.use('/editor', editorRouter);
 app.use('/head', adminRouter);
 // use auth router
 app.use('/auth', authRouter);
+
+app.use('/api/products', require("./routes/api"));
+
 
 // app.use(require("./middlewares/exposeFlashMessages"));
 

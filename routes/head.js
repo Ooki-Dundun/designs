@@ -140,7 +140,7 @@ router.get('/manage-rights/delete/:id', pHR, (req, res, next) => {
 
 
 
-// edit a product page
+// get edit a product page
 router.get('/edit-product/:id', pHR, (req, res, next) => {
   ProductModel.findById(req.params.id).populate('designer')
   .then((product) => {

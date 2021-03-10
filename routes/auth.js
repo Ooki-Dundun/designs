@@ -12,7 +12,6 @@ router.get('/signup', (req, res, next) => res.render('./../views/users/signup.hb
 // post sign up details
 router.post('/signup', (req, res, next) => {
     const newUser = {...req.body};
-    console.log(newUser);
     // check if user already registered
     UserModel.findOne({companyEmail: newUser.companyEmail})
     .then((foundUser) => {
@@ -64,20 +63,14 @@ router.post('/log-in', (req, res, next) => {
                 // if email and password are correct, authenticate the user
                 const userObject = foundUser.toObject();
                 delete userObject.password; // remove password before saving user in session
-                console.log('SESSION ========> ', req.session) // just to get an idea
                 req.session.currentUser = userObject; // Stores the user in the session (data server side + a cookie is sent client side)
-                console.log('req.session.currentUser :', req.session.currentUser)
-                console.log('RES.LOCALS === > ', res.locals) 
                 if(foundUser.role === 'Staff') {
-                    console.log('RES.LOCALS === > ', res.locals) 
                     req.flash('success', 'Successfully connected')
                     res.redirect('/staff')
                 } else if(foundUser.role === 'Editor') {
-                    console.log('RES.LOCALS === > ', res.locals) 
                     req.flash('success', 'Successfully connected')
                     res.redirect('/editor')
                 } else {
-                    console.log('RES.LOCALS === > ', res.locals) 
                     req.flash('success', 'Successfully connected')
                     res.redirect('/head')
                 }

@@ -23,6 +23,12 @@
             <li>Collection: {{product.serie.season}} {{product.serie.year}}</li>
             <li>Status: {{product.status}}</li>
             <li>Internal notes: {{product.internalNotes}}</li>
+            {{#if isDesigner}}
+            <li><a href="/head/edit-product/{{product._id}}">Edit product information</a></li>
+            {{/if}}
         </ul>
     </div>
 </div>
+
+<h2>Comments</h2>
+<div id="comments container"></div>
