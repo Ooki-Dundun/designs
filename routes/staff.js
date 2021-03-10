@@ -4,6 +4,8 @@ var router = express.Router();
 const ProductModel = require('./../models/Product');
 // require collection model
 const SerieModel = require('../models/Serie');
+// require comment model
+const CommentModel = require('./../models/Comment')
 
 // require protect staff route middleware
 const pSR = require('./../middlewares/protectstaffroute')
@@ -33,14 +35,21 @@ router.get('/search', pSR, (req, res, next) => {
 //display one product
 router.get('/product/:id', pSR, (req, res, next) => {
   ProductModel.findById(req.params.id).populate('editors').populate('serie')
-  .then((product) => res.render('./../views/users/3staff/4productinfo.hbs', {product}))
-  .catch((err) => next(err));
-})
+  .then((product) => {
+    CommentModel.find({product: product._id}).populate('author')
+    .then((comments) => res.render('./../views/users/3staff/4productinfo.hbs', {product, comments}))
+    .catch((err) => next(err))
+  })
+});
 
-// get the search products info
-router.post('/search', (req, res, next) => {
-  // search by name or other criterion
-})
+// add comments to a product 
+router.post('/product/:id/', (req, res, next) => {
+ console.log("req.params is : ", req.params);
+ console.log("req.body is : ", req.body);
+  CommentModel.create(req.body)
+  .then((comment) => res.status(201).json(comment))
+  .catch((err) => res.status(500).json(err))
+});
 
 //get all products from a collection with editors
 router.get('/series/:id', pSR, (req, res, next) => {

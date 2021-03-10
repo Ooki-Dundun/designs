@@ -50,7 +50,7 @@ app.use(
       secret: process.env.SESS_SECRET, // secret used to sign the session ID cookie
       saveUninitialized: false,
       resave: false, // session does not need to be resaved if not modified
-      cookie: { maxAge: 3600000 } // disappears after 1 hour
+      cookie: { maxAge: 3600000} // disappears after 1 hour
   })
 )
 

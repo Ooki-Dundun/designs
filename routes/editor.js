@@ -56,7 +56,10 @@ router.post('/edit-product/:id', fileUploader.single("image"), (req, res, next) 
 
 // get my collections page
 router.get('/:id/my-collections', pER, (req, res,next) => {
-  SerieModel.find()
+  UserModel.findById(req.params.id)
+  .then((user) => {
+    const team = user.team
+  })
 })
 
 // get my products page

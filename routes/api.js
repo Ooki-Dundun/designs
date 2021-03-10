@@ -2,6 +2,7 @@
 var express = require("express");
 var router = express.Router();
 const ProductModel = require("./../models/Product");
+const CommentModel = require('./../models/Comment');
 
 router.get('/', (req, res, next) => {
     let query = {};
@@ -14,5 +15,6 @@ router.get('/', (req, res, next) => {
     .then((products) => res.status(200).json(products))
     .catch((err) => res.status(500).json(err))
 })
+
 
 module.exports = router

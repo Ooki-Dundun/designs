@@ -8,8 +8,8 @@
     </div>
     <div>Desription
         <ul>
-            <li>Name: {{product.name}}</li>
-            <li>Designer: {{product.designer}}</li>
+            <li id="product-name">Name: {{product.name}}</li>
+            <li>Designer: {{product.designer.name}}</li>
             <li>Editors:
                 <ul>
                     {{#each product.editors}}
@@ -23,6 +23,7 @@
             <li>Collection: {{product.serie.season}} {{product.serie.year}}</li>
             <li>Status: {{product.status}}</li>
             <li>Internal notes: {{product.internalNotes}}</li>
+            <li>id: <span id="product-id">{{product._id}}</span></li>
             {{#if isDesigner}}
             <li><a href="/head/edit-product/{{product._id}}">Edit product information</a></li>
             {{/if}}
@@ -31,4 +32,16 @@
 </div>
 
 <h2>Comments</h2>
-<div id="comments container"></div>
+{{> flashmessages}}
+<div>
+    <input type="text" name='comment-input' placeholder="type..." id="comment-input">
+    <button id='send-btn'>Send</button>
+</div>
+<div id="comments-container">
+    {{#each comments}}
+    <div>
+        <div>{{this.content}}</div>
+        <div>{{this.author}}</div>
+    </div>
+    {{/each}}
+</div>

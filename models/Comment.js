@@ -7,15 +7,12 @@ const commentSchema = new mongoose.Schema({
         required: true,
         type: mongoose.Schema.Types.ObjectId, ref: 'products'
     },
-    author: {
-        required: true,
-        type: mongoose.Schema.Types.ObjectId, ref: 'users'
-    },
     content: {
         required: true,
         type: String
     },
     date: {
+        required: true,
         type: Date
     }
 });
