@@ -62,7 +62,7 @@ router.get('/:id/my-collections', pER, (req, res,next) => {
 // get my products page
 router.get('/:id/my-products', pER, (req, res, next) => {
   ProductModel.find({editors: req.params.id}).populate('designer').populate('serie').populate('editors')
-  .then((products) => res.render('./../views/users/2editor/4myproducts.hbs', {products}))
+  .then((products) => res.render('./../views/users/2editor/2myproducts.hbs', {products}))
   .catch((err) => next(err))
 })
 

@@ -4,10 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "dev": "nodemon -L ./bin/www -e .hbs,.js",
-    "seed:collections": "node ./bin/seed/collections.js",
-    "seed:products": "node ./bin/seed/products.js",
-    "seed:users": "node ./bin/seed/users.js"
+    "dev": "nodemon -L ./bin/www -e .hbs,.js"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
