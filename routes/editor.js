@@ -11,8 +11,11 @@ const UserModel = require('./../models/User')
 const fileUploader = require("./../config/cloudinary");
 const { array } = require('./../config/cloudinary');
 
+// require protect editor route middleware
+const pER = require('./../middlewares/protecteditorroute')
+
 // get editor main page
-router.get('/', function(req, res, next) {
+router.get('/', pER, function(req, res, next) {
   ProductModel.find().populate('editors').populate('serie')
   .then((products) => {
   res.render('./../views/users/2editor/1edmypage.hbs', {products});
@@ -21,7 +24,7 @@ router.get('/', function(req, res, next) {
 });
 
 // get edit product page
-router.get('/edit-product/:id', (req, res, next) => {
+router.get('/edit-product/:id', pER, (req, res, next) => {
   ProductModel.findById(req.params.id).populate('designer').populate('editors')
   .then((product) => {
     UserModel.find()
@@ -52,12 +55,12 @@ router.post('/edit-product/:id', fileUploader.single("image"), (req, res, next) 
 })
 
 // get my collections page
-router.get('/:id/my-collections', (req, res,next) => {
+router.get('/:id/my-collections', pER, (req, res,next) => {
   SerieModel.find()
 })
 
 // get my products page
-router.get('/:id/my-products', (req, res, next) => {
+router.get('/:id/my-products', pER, (req, res, next) => {
   ProductModel.find({editors: req.params.id}).populate('designer').populate('serie').populate('editors')
   .then((products) => res.render('./../views/users/2editor/4myproducts.hbs', {products}))
   .catch((err) => next(err))

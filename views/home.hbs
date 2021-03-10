@@ -1,14 +1,17 @@
 <nav>
-{{> navbarmain}}
+<a href="/">Home</a>
+<a href="/About">About</a>
+<a href="/Contact">Contact</a>
 <a href="/auth/signup">Sign up</a>
 </nav>
 
 <div id="log-in-container">
+    {{> flashmessages}}
     <form method="post" action="/auth/log-in">
         <label for="companyEmail">email</label>
         <input type="text" name="companyEmail" placeholder="insert email" value="email@test.com">
         <label for="password">password</label>
          <input type="password" name="password" placeholder="insert password" value="1234">
-         <button>log-in</button>
+         <button>Log in</button>
     </form>
 </div>

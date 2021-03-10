@@ -13,6 +13,7 @@
             <th>Delete</th>
         </tr>
         {{#each users}}
+        {{#unless @first}}
         <tr>
             <td>{{this.firstName}} {{this.lastName}}</td>
             <td>{{this.team}}</td>
@@ -20,6 +21,7 @@
             <td><a href="/head/manage-rights/{{this._id}}">edit</a></td>
             <td><a href="/head/manage-rights/delete/{{this._id}}">delete</a></td>
         </tr>
+        {{/unless}}
         {{/each}}
     </table>
 </div>

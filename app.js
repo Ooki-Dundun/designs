@@ -1,31 +1,35 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 // require hbs
 const hbs = require("hbs");
+// require flash
+const flash = require("connect-flash");
 
-// register hns helpers
+// require express-session
+const session = require('express-session');
+
+// register hbs helpers
 // helper to display last value of array
 hbs.registerHelper("last", (array) => array[(array.length - 1)]);
+
 
 // require mongoose
 require("./config/mongoose");
 
-
-
-var indexRouter = require('./routes/index');
+const indexRouter = require('./routes/index');
 // set up staff router
-var staffRouter = require('./routes/staff');
+const staffRouter = require('./routes/staff');
 // set up editor router
-var editorRouter = require('./routes/editor');
+const editorRouter = require('./routes/editor');
 // set up admim router
-var adminRouter = require('./routes/head');
+const adminRouter = require('./routes/head');
 // set auth router
-var authRouter = require('./routes/auth');
+const authRouter = require('./routes/auth');
 
-var app = express();
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -39,6 +43,23 @@ app.use(express.urlencoded({ extended: false })); // expose synchronous posted d
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// initialize session
+app.use(
+  session({
+      secret: process.env.SESS_SECRET, // secret used to sign the session ID cookie
+      saveUninitialized: false,
+      resave: false, // session does not need to be resaved if not modified
+      cookie: { maxAge: 3600000 } // disappears after 1 hour
+  })
+)
+
+//initialize flash
+app.use(flash());
+
+// require middlewares
+app.use(require("./middlewares/displayflashmessages"));
+app.use(require("./middlewares/showloginstatus"));
+
 app.use('/', indexRouter);
 // use staff router
 app.use('/staff', staffRouter);
@@ -48,6 +69,8 @@ app.use('/editor', editorRouter);
 app.use('/head', adminRouter);
 // use auth router
 app.use('/auth', authRouter);
+
+// app.use(require("./middlewares/exposeFlashMessages"));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

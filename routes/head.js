@@ -10,8 +10,11 @@ const UserModel = require('./../models/User')
 const fileUploader = require("./../config/cloudinary");
 const { array } = require('./../config/cloudinary');
 
+// require protect head route middle ware
+const pHR = require('./../middlewares/protectheadroute')
+
 // get head designer main page
-router.get('/', function(req, res, next) {
+router.get('/', pHR,  function(req, res, next) {
   ProductModel.find().populate('editors').populate('serie')
   .then((products) => {
   res.render('./../views/users/1head/1hdmypage.hbs', {products});
@@ -20,7 +23,7 @@ router.get('/', function(req, res, next) {
 });
 
 // get add a new design page
-router.get('/add-product', (req, res, next) => {
+router.get('/add-product', pHR, (req, res, next) => {
   UserModel.find({role: 'Designer'})
   .then((designers) => {
     UserModel.find()
@@ -61,7 +64,7 @@ router.post('/add-product', fileUploader.single('image'), (req, res, next) => {
 });
 
 // get add or delete a serie page
-router.get('/series', (req, res, next) => {
+router.get('/series', pHR, (req, res, next) => {
   SerieModel.find()
   .then((series) => res.render('./../views/users/1head/3hdseries.hbs', {series}))
   .catch((err) => next(err))
@@ -76,7 +79,7 @@ router.post('/series', (req, res, next) => {
 })
 
 // get information to delete serie
-router.get('/series/:id', (req, res, next) => {
+router.get('/series/:id', pHR, (req, res, next) => {
   SerieModel.findByIdAndDelete(req.params.id)
   .then((serie) => {
     // delete models from serie
@@ -89,7 +92,7 @@ router.get('/series/:id', (req, res, next) => {
   })});
 
 // get manage rights page
-router.get('/manage-rights', (req, res, next) => {
+router.get('/manage-rights', pHR, (req, res, next) => {
   UserModel.find()
   .then((users) => {
     ProductModel.find().populate('editors')
@@ -101,7 +104,7 @@ router.get('/manage-rights', (req, res, next) => {
 })
 
 // get change user's rights page
-router.get('/manage-rights/:id', (req, res, next) => {
+router.get('/manage-rights/:id', pHR, (req, res, next) => {
   UserModel.findById(req.params.id)
   .then((user) => res.render('./../views/users/1head/6hdedituser.hbs', {user}))
   .catch((err) => next(err))
@@ -126,7 +129,7 @@ router.post('/manage-rights/:id', (req, res, next) => {
 })
 
 //get info to delete user
-router.get('/manage-rights/delete/:id', (req, res, next) => {
+router.get('/manage-rights/delete/:id', pHR, (req, res, next) => {
   UserModel.findByIdAndDelete(req.params.id)
   .then((user) => {
     console.log(user);
@@ -138,7 +141,7 @@ router.get('/manage-rights/delete/:id', (req, res, next) => {
 
 
 // edit a product page
-router.get('/edit-product/:id', (req, res, next) => {
+router.get('/edit-product/:id', pHR, (req, res, next) => {
   ProductModel.findById(req.params.id).populate('designer')
   .then((product) => {
     UserModel.find()
@@ -195,7 +198,7 @@ router.post('/edit-product/:id', fileUploader.single("image"), (req, res, next) 
 })
 
 // delete a product
-router.get('/delete-product/:id', (req, res, next) => {
+router.get('/delete-product/:id', pHR, (req, res, next) => {
   ProductModel.findByIdAndDelete(req.params.id)
   .then((product) => {
     console.log('The design is no longer in the database');

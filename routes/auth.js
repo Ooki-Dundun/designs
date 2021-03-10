@@ -17,7 +17,7 @@ router.post('/signup', (req, res, next) => {
     UserModel.findOne({companyEmail: newUser.companyEmail})
     .then((foundUser) => {
         if (foundUser) {
-            console.log('You cannot register with this email');
+            req.flash('error', 'You cannot register with this information');
             res.redirect('/auth/signup');
         } else {
             if(!foundUser) {
@@ -31,7 +31,7 @@ router.post('/signup', (req, res, next) => {
                     password: newUser.password
                 })
                 .then((newUser) => {
-                    console.log("Congrats, you are now registered", newUser);
+                    req.flash('success', "Congrats, you are now registered");
                     res.redirect("/");
                 })
                 // double check what to do with this
@@ -48,30 +48,32 @@ router.post('/log-in', (req, res, next) => {
     .then((foundUser) => {
         // if email not registered
         if(!foundUser) {
-            console.log('Invalid credentials')
             // redirect to home page
+            req.flash('message', 'Invalid credentials');
             res.redirect('/');
             return
         }
         if(foundUser) {
-            const isSamePassword = bcrypt.compareSync(password, foundUser.password);
-            if(!isSamePassword) {
+            // check if password is correct
+            if(!bcrypt.compareSync(password, foundUser.password)) {
                 // if password is wrong
-                console.log('Invalid credentials');
-                // redirect to home page
+                req.flash('message', 'Invalid credentials');
                 res.redirect('/');
             } else {
                 // if email and password are correct, authenticate the user
-                /* const userObject = foundUser.toObject();
+                const userObject = foundUser.toObject();
                 delete userObject.password; // remove password before saving user in session
-                console.log(req.session) // just to get an idea
-                req.session.currentUser = userObject; // Stores the user in the session (data server side + a cookie is sent client side) */
-                console.log("Logged in");
+                console.log('SESSION ========> ', req.session) // just to get an idea
+                req.session.currentUser = userObject;
+                console.log('req.session.currentUser :', req.session.currentUser) // Stores the user in the session (data server side + a cookie is sent client side) */
                 if(foundUser.role === 'Staff') {
+                    req.flash('message', 'Successfully connected')
                     res.redirect('/staff')
                 } else if(foundUser.role === 'Editor') {
+                    req.flash('message', 'Successfully connected')
                     res.redirect('/editor')
                 } else {
+                    req.flash('message', 'Successfully connected')
                     res.redirect('/head')
                 }
             }
@@ -80,5 +82,10 @@ router.post('/log-in', (req, res, next) => {
 });
 
 //log out
+router.get("/log-out", (req, res, next) => {
+    req.session.destroy();
+    console.log('logged out');
+    res.redirect("/");
+});
 
 module.exports = router;

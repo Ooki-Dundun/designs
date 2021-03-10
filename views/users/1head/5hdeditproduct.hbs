@@ -14,19 +14,25 @@
         <label for="editors">Add new editors</label>
          <select name="editors">
             {{#each users}}
+            {{#unless @first}}
             <option value="{{this._id}}">{{this.firstName}} {{this.lastName}}</option>
+            {{/unless}}
             {{/each}}
             <option value="n/a">Not applicable</option>
         </select>
         <select name="editors">
             {{#each users}}
+            {{#unless @first}}
             <option value="{{this._id}}">{{this.firstName}} {{this.lastName}}</option>
+            {{/unless}}
             {{/each}}
             <option value="n/a">Not applicable</option>
         </select>
         <select name="editors">
             {{#each users}}
+            {{#unless @first}}
             <option value="{{this._id}}">{{this.firstName}} {{this.lastName}}</option>
+            {{/unless}}
             {{/each}}
             <option value="n/a">Not applicable</option>
         </select>
