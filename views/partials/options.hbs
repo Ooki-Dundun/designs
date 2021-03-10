@@ -1,0 +1,18 @@
+<div class="options">
+    {{#if isLoggedIn}}
+    <a href="/staff/search">Search a product</a>
+    {{/if}}
+    {{#if isDesigner}}
+    <a href="/head/add-product">Add a new design</a>
+    <a href="/head/series">Collections</a>
+    <a href="/head/manage-rights">Manage users' rights</a>
+    {{/if}}
+    {{#if isEditor}}
+    <a href="/staff/series">Collections</a>
+    <a href="/editor/{{currentUser._id}}/my-products">My products</a>
+    <a href="/editor/{{currentUser._id}}/collections">My collections</a>
+    {{/if}}
+    {{#if isStaff}}
+    <a href="/staff/series">Collections</a>
+    {{/if}}
+</div>

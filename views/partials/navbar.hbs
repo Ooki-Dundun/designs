@@ -1,5 +1,7 @@
 <nav>
+    {{#unless isLoggedIn}}
     <a href="/">Home</a>
+    {{/unless}}
     <a href="/About">About</a>
     <a href="/Contact">Contact</a>
     {{#unless isLoggedIn}}

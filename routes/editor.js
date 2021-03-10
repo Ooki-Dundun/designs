@@ -61,8 +61,12 @@ router.get('/:id/my-collections', pER, (req, res,next) => {
 
 // get my products page
 router.get('/:id/my-products', pER, (req, res, next) => {
+  console.log('req.params.id :', req.params.id);
   ProductModel.find({editors: req.params.id}).populate('designer').populate('serie').populate('editors')
-  .then((products) => res.render('./../views/users/2editor/2myproducts.hbs', {products}))
+  .then((products) => {
+    console.log("products :", products);
+    res.render('./../views/users/2editor/2myproducts.hbs', {products})
+  })
   .catch((err) => next(err))
 })
 
