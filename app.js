@@ -15,7 +15,6 @@ const session = require('express-session');
 // helper to display last value of array
 hbs.registerHelper("last", (array) => array[(array.length - 1)]);
 
-
 // require mongoose
 require("./config/mongoose");
 
