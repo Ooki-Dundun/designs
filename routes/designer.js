@@ -39,6 +39,7 @@ router.get('/add-product', pHR, (req, res, next) => {
 
 // get info from new design form to add new design
 router.post('/add-product', fileUploader.single('image'), (req, res, next) => {
+  console.log('ADDING ADDING ADDING ADDING PRODUCT TO DB')
   const { name, designer, editors, category, color, material, serie, status, internalNotes} = req.body;
   // editors should only contain ids of actual users: make sure n/a will not be pushed to editors' array
   const editorsToPush = filterNotApplicableEditors(editors);
