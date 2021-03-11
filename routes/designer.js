@@ -63,9 +63,11 @@ router.post('/add-product', fileUploader.single('image'), (req, res, next) => {
         console.log(`The following has been added to the database: ${finalProduct}`);
         res.redirect('/head');
       })
-      .catch((err) => console.log(err));
+      .catch((err) => next(err));
     })
+    .catch((err) => next(err));
   })
+  .catch((err) => next(err));
 });
 
 // get add or delete a serie page
