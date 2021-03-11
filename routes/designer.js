@@ -74,7 +74,7 @@ router.get("/add-product", pHR, (req, res, next) => {
 
 // function with fileuploader
 //console.log('COUCOU COUCOU COUCOU COUCOU COUCOU COUCOU COUCOU COUCOU COUCOU COUCOU')
-router.post("/add-product", fileUploader.single("image"), (req, res, next) => {
+router.post("/add-product", (req, res, next) => {
   console.log("ADDING ADDING ADDING ADDING PRODUCT TO DB");
   console.log(req.body);
   return res.send("debug")
