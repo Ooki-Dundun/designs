@@ -80,7 +80,6 @@ router.post("/add-product", fileUploader.single("image"), (req, res, next) => {
   const {
     name,
     designer,
-    editors,
     category,
     color,
     material,
