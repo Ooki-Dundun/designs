@@ -3,6 +3,8 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+// require mongoose
+const mongoose = require('./config/mongoose');
 // require hbs
 const hbs = require("hbs");
 // require flash
@@ -17,9 +19,6 @@ const moment = require("moment"); // usefull to format date
 hbs.registerHelper("last", (array) => array[(array.length - 1)]);
 hbs.registerHelper("date", (date) => moment(date).format("YYYY-MM-DD"))
 
-// require mongoose
-require("./config/mongoose");
-
 const indexRouter = require('./routes/index');
 // set up staff router
 const staffRouter = require('./routes/staff');
@@ -29,6 +28,7 @@ const editorRouter = require('./routes/editor');
 const adminRouter = require('./routes/head');
 // set auth router
 const authRouter = require('./routes/auth');
+const { constants } = require('http2');
 
 const app = express();
 

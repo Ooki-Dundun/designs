@@ -17,7 +17,7 @@ const productSchema = new mongoose.Schema({
     category: {
         type: String,
         required: true,
-        enum: ['Top', 'Pants', 'Dress', 'Squirt', 'Shoes', 'Other']
+        enum: ['Top', 'Pants', 'Dress', 'Skirt', 'Shoes', 'Other']
     },
     color: {
         type: String,
