@@ -25,10 +25,9 @@ const staffRouter = require('./routes/staff');
 // set up editor router
 const editorRouter = require('./routes/editor');
 // set up admim router
-const adminRouter = require('./routes/head');
+const designerRouter = require('./routes/designer');
 // set auth router
 const authRouter = require('./routes/auth');
-const { constants } = require('http2');
 
 const app = express();
 
@@ -67,7 +66,7 @@ app.use('/staff', staffRouter);
 // use editor router
 app.use('/editor', editorRouter);
 // use admin router
-app.use('/head', adminRouter);
+app.use('/head', designerRouter);
 // use auth router
 app.use('/auth', authRouter);
 

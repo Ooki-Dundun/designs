@@ -1,17 +1,17 @@
 var express = require('express');
 var router = express.Router();
 // require product model
-const ProductModel = require('./../models/Product');
+const ProductModel = require('../models/Product');
 //require serie model
 const SerieModel = require('../models/Serie');
 // require user model
-const UserModel = require('./../models/User')
+const UserModel = require('../models/User')
 // require cloudinary for file upload
-const fileUploader = require("./../config/cloudinary");
-const { array } = require('./../config/cloudinary');
+const fileUploader = require("../config/cloudinary");
+const { array } = require('../config/cloudinary');
 
 // require protect head route middle ware
-const pHR = require('./../middlewares/protectheadroute')
+const pHR = require('../middlewares/protectheadroute')
 
 // get head designer main page
 router.get('/', pHR,  function(req, res, next) {
