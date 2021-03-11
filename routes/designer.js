@@ -7,7 +7,7 @@ const SerieModel = require('../models/Serie');
 // require user model
 const UserModel = require('../models/User')
 // require cloudinary for file upload
-const fileUploader = require("../config/cloudinary");
+const fileUploader = require('./../config/cloudinary');
 const { array } = require('../config/cloudinary');
 
 // require protect head route middle ware
@@ -37,39 +37,8 @@ router.get('/add-product', pHR, (req, res, next) => {
   })
 })
 
-// get info from new design form to add new design
-router.post('/add-product', (req, res, next) => {
-  console.log('ADDING ADDING ADDING ADDING PRODUCT TO DB');
-  console.log(req.body);
-  const { name, designer, editors, category, color, material, serie, status, internalNotes} = req.body;
-  // editors should only contain ids of actual users: make sure n/a will not be pushed to editors' array
-  const editorsToPush = filterNotApplicableEditors(editors);
-  console.log('editorsToPush', editorsToPush)
-  // update role of users that have been selected as editors from "Staff" to "Editor"
-  updateRoleToEditor(editorsToPush);
-  ProductModel.create({ name, designer, category, color, material, serie, status, internalNotes})
-  .then((product) => {
-    // push editors to array of editors
-    const editorPromise = updateEditorsOfProduct(product._id, editorsToPush)
-    editorPromise
-    .then((productWithEditors) => {
-      // push images to array of images
-        console.log(`The following has been added to the database: ${productWithEditors}`);
-        res.redirect('/head');
-      })
-    .catch((err) =>  {
-      console.log(err);
-      next(err)
-    });
-  })
-  .catch((err) => {
-    console.log(err);
-    next(err)
-  });
-});
-
-// function with fileuploader
-//router.post('/add-product', fileUploader.single('image'), (req, res, next) => {
+//// get info from new design form to add new design
+//router.post('/add-product', (req, res, next) => {
 //  console.log('ADDING ADDING ADDING ADDING PRODUCT TO DB');
 //  console.log(req.body);
 //  const { name, designer, editors, category, color, material, serie, status, internalNotes} = req.body;
@@ -85,21 +54,9 @@ router.post('/add-product', (req, res, next) => {
 //    editorPromise
 //    .then((productWithEditors) => {
 //      // push images to array of images
-//      if(req.file) {
-//        var imagePromise = addImageOfProduct(product._id, req.file.path);
-//      } else {
-//        var imagePromise = addImageOfProduct(product._id, "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/300px-No_image_available.svg.png")
-//      }
-//      imagePromise
-//      .then((finalProduct) => {
-//        console.log(`The following has been added to the database: ${finalProduct}`);
+//        console.log(`The following has been added to the database: ${productWithEditors}`);
 //        res.redirect('/head');
 //      })
-//      .catch((err) => {
-//      console.log(err);
-//      next(err)
-//      });
-//    })
 //    .catch((err) =>  {
 //      console.log(err);
 //      next(err)
@@ -110,6 +67,49 @@ router.post('/add-product', (req, res, next) => {
 //    next(err)
 //  });
 //});
+
+// function with fileuploader
+router.post('/add-product', fileUploader.single("image"), (req, res, next) => {
+  console.log('ADDING ADDING ADDING ADDING PRODUCT TO DB');
+  console.log(req.body);
+  const { name, designer, editors, category, color, material, serie, status, internalNotes} = req.body;
+  // editors should only contain ids of actual users: make sure n/a will not be pushed to editors' array
+  const editorsToPush = filterNotApplicableEditors(editors);
+  console.log('editorsToPush', editorsToPush)
+  // update role of users that have been selected as editors from "Staff" to "Editor"
+  updateRoleToEditor(editorsToPush);
+  ProductModel.create({ name, designer, category, color, material, serie, status, internalNotes})
+  .then((product) => {
+    // push editors to array of editors
+    const editorPromise = updateEditorsOfProduct(product._id, editorsToPush)
+    editorPromise
+    .then((productWithEditors) => {
+      // push images to array of images
+      if(req.file) {
+        var imagePromise = addImageOfProduct(product._id, req.file.path);
+      } else {
+        var imagePromise = addImageOfProduct(product._id, "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/300px-No_image_available.svg.png")
+      }
+      imagePromise
+      .then((finalProduct) => {
+        console.log(`The following has been added to the database: ${finalProduct}`);
+        res.redirect('/head');
+      })
+      .catch((err) => {
+      console.log(err);
+      next(err)
+      });
+    })
+    .catch((err) =>  {
+      console.log(err);
+      next(err)
+    });
+  })
+  .catch((err) => {
+    console.log(err);
+    next(err)
+  });
+});
 
 // get add or delete a serie page
 router.get('/series', pHR, (req, res, next) => {
