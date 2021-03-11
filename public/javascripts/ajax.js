@@ -43,7 +43,7 @@ function handleCreateComment(input, callback) {
 
 // DOM event listener
 window.addEventListener('load', () => {
-  sendBtn.addEventListener('click', () => {
+  if (sendBtn) sendBtn.addEventListener('click', () => {
     console.log('clicked')
     if(commentInput.value.length === 0) {
       return
@@ -90,7 +90,7 @@ function handleRead(evt, callback) {
   }
 
 // DOM event listener
-inputSearch.onkeyup = (evt) => {
+if (inputSearch) inputSearch.onkeyup = (evt) => {
     resetSearchResult()
     handleRead(evt, displayResults);
   };

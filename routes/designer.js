@@ -69,19 +69,30 @@ router.get('/add-product', pHR, (req, res, next) => {
 //});
 
 // function with fileuploader
+console.log('COUCOU COUCOU COUCOU COUCOU COUCOU COUCOU COUCOU COUCOU COUCOU COUCOU')
 router.post('/add-product', fileUploader.single("image"), (req, res, next) => {
   console.log('ADDING ADDING ADDING ADDING PRODUCT TO DB');
   console.log(req.body);
   const { name, designer, editors, category, color, material, serie, status, internalNotes} = req.body;
+  let images;
   // editors should only contain ids of actual users: make sure n/a will not be pushed to editors' array
   const editorsToPush = filterNotApplicableEditors(editors);
   console.log('editorsToPush', editorsToPush)
   // update role of users that have been selected as editors from "Staff" to "Editor"
   updateRoleToEditor(editorsToPush);
-  ProductModel.create({ name, designer, category, color, material, serie, status, internalNotes})
-  .then((product) => {
+
+  if(req.file) {
+    images = [req.file.path];
+  } else images = ["https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/300px-No_image_available.svg.png"];
+
+  ProductModel.create({ name, designer, category, color, material, serie, status, internalNotes, images})
+  .then(async (product) => {
+    console.log(product);
     // push editors to array of editors
-    const editorPromise = updateEditorsOfProduct(product._id, editorsToPush)
+    const editorPromise = await updateEditorsOfProduct(product._id, editorsToPush)
+    console.log(editorPromise);
+    res.redirect('/head');
+    /*
     editorPromise
     .then((productWithEditors) => {
       // push images to array of images
@@ -104,6 +115,7 @@ router.post('/add-product', fileUploader.single("image"), (req, res, next) => {
       console.log(err);
       next(err)
     });
+    */
   })
   .catch((err) => {
     console.log(err);

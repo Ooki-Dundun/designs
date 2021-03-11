@@ -34,7 +34,7 @@
             <option value="n/a">Not applicable</option>
         </select>
         <label for="category">Category</label>
-        <select name="category">
+        <select name="category" required>
             <option value="Top">Top</option>
             <option value="Pants">Pants</option>
             <option value="Dress">Dress</option>
@@ -43,8 +43,8 @@
             <option value="Other">Other</option>
         </select>
         <label for="color">Color</label>
-        <input type="text" name="color">
-        <select name="material">
+        <input type="text" name="color" required>
+        <select name="material" required>
             <option value="coton">Coton</option>
             <option value="silk">Silk</option>
             <option value="leather">Leather</option>
@@ -52,15 +52,15 @@
             <option value="other">Other</option>
         </select>
         <label for="serie">Collection</label>
-        <select name="serie">
+        <select name="serie" required>
             {{#each series}}
             <option value="{{this._id}}">{{this.season}} {{this.year}}</option>
             {{/each}}
         </select>
         <label for="status">Status</label>
-        <input type="text" name="status">
+        <input type="text" name="status" required>
         <label for="internalNotes">Internal notes</label>
-        <input type="text" name="internalNotes">
+        <input type="text" name="internalNotes" required>
         <label for="image">Add new image</label>
         <input type="file" name="image">
         <button type="submit">Add design to database</button>
