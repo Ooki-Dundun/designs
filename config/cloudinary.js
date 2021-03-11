@@ -23,7 +23,7 @@ const storage = new CloudinaryStorage({
         console.log(file);
         return {
           folder: 'folder_name',
-          format: 'jpeg',
+          //format: ['jpeg', "png"],
           //public_id: 'some_unique_id',
         };
       }
