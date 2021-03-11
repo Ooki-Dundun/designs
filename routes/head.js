@@ -52,7 +52,11 @@ router.post('/add-product', fileUploader.single('image'), (req, res, next) => {
     editorPromise
     .then((productWithEditors) => {
       // push images to array of images
-      const imagePromise = addImageOfProduct(product._id, req.file.path);
+      if(req.file) {
+        var imagePromise = addImageOfProduct(product._id, req.file.path);
+      } else {
+        var imagePromise = addImageOfProduct(product._id, "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/300px-No_image_available.svg.png")
+      }
       imagePromise
       .then((finalProduct) => {
         console.log(`The following has been added to the database: ${finalProduct}`);

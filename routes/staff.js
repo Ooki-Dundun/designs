@@ -46,9 +46,22 @@ router.get('/product/:id', pSR, (req, res, next) => {
 router.post('/product/:id/', (req, res, next) => {
  console.log("req.params is : ", req.params);
  console.log("req.body is : ", req.body);
-  CommentModel.create(req.body)
-  .then((comment) => res.status(201).json(comment))
-  .catch((err) => res.status(500).json(err))
+ console.log(req.session)
+  CommentModel.create({
+    product: req.body.product,
+    author: req.session.currentUser._id,
+    content: req.body.content,
+    date: req.body.date
+  })
+  // need to find comment to populate to be able to populate editor to include comments container front end
+  .then((comment) => {
+    CommentModel.findById(comment._id).populate('author')
+    .then((commentWithAuthor) => {
+      console.log("commentWithAuthor is : ", commentWithAuthor)
+      res.status(201).json(commentWithAuthor)
+    })
+    .catch((err) => res.status(500).json(err))
+  })
 });
 
 //get all products from a collection with editors

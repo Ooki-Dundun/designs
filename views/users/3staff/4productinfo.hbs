@@ -41,7 +41,7 @@
     {{#each comments}}
     <div>
         <div>{{this.content}}</div>
-        <div>{{this.author}}</div>
+        <div>{{this.author.firstName}} {{this.author.lastName}} {{date this.date}}</div>
     </div>
     {{/each}}
 </div>

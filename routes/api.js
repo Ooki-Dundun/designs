@@ -10,6 +10,10 @@ router.get('/', (req, res, next) => {
         // if we send a query string with the get request (?name=whatever)
         const exp = new RegExp(req.query.name); // creating a regular expression
         query.name = {$regex: exp}; // create an object literal that will macth mongo query's expectations
+    } else {
+        // make sure that if input bar is empty, it returns all objects with the following name: *** => nothing
+        const exp = new RegExp("****"); // creating a regular expression
+        query.name = {$regex: exp};
     }
     ProductModel.find(query).populate('serie')
     .then((products) => res.status(200).json(products))

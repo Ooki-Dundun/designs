@@ -12,8 +12,10 @@ const flash = require("connect-flash");
 const session = require('express-session');
 
 // register hbs helpers
+const moment = require("moment"); // usefull to format date
 // helper to display last value of array
 hbs.registerHelper("last", (array) => array[(array.length - 1)]);
+hbs.registerHelper("date", (date) => moment(date).format("YYYY-MM-DD"))
 
 // require mongoose
 require("./config/mongoose");
@@ -27,7 +29,6 @@ const editorRouter = require('./routes/editor');
 const adminRouter = require('./routes/head');
 // set auth router
 const authRouter = require('./routes/auth');
-
 
 const app = express();
 

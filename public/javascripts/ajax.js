@@ -14,9 +14,10 @@ const commentsContainer = document.getElementById("comments-container")
 // DOM logic
 
 function publishComment(input) {
-  console.log('publishing input: ', input.content, input.author)
+  console.log('publishing input: ', input.content, input.author, input.date)
   commentsContainer.innerHTML += `<div>
   <div>${input.content}</div>
+  <div>${input.author.firstName} ${input.author.lastName}</div>
 </div>`
 }
 
