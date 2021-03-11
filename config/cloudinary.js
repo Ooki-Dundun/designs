@@ -9,24 +9,7 @@ cloudinary.config({
 });
 
 const storage = new CloudinaryStorage({
-    cloudinary,
-    /*folder: "designs",
-    allowedFormats: ['jpg', 'png'],
-    filename: function(req, file, cb) {
-        console.log("hello je suis là");
-        cb(null, file.originalname)
-    }*/
-    params: async (req, file) => {
-        // async code using `req` and `file`
-        // ...
-        console.log("hey hey");
-        console.log(file);
-        return {
-          folder: 'folder_name',
-          //format: ['jpeg', "png"],
-          //public_id: 'some_unique_id',
-        };
-      }
+    cloudinary
 });
 
 const uploadCloud = multer({ storage });
