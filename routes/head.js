@@ -187,15 +187,22 @@ router.post('/edit-product/:id', fileUploader.single("image"), (req, res, next) 
         singleEditorsPromise
         .then((productWithSingleEditors) => {
           console.log('pwse', productWithSingleEditors)
-          // push image to array of images
-          const imagePromise = addImageOfProduct(req.params.id, req.file.path);
-          imagePromise
-          .then((finalProduct) => {
-            console.log(finalProduct);
-            res.redirect('/head')
-          })
-          .catch((err) => next(err))
+          // check if image has been uploaded
+          if (req.file) {
+            // push image to array of images
+            const imagePromise = addImageOfProduct(req.params.id, req.file.path);
+            imagePromise
+            .then((finalProduct) => {
+              console.log(finalProduct);
+              res.redirect('/head')
+            })
+            .catch((err) => next(err))
+          } else {
+            console.log(productWithSingleEditors);
+            res.redirect('/head');
+          }
         })
+        .catch((err) => next(err))
       })
     })
   })
