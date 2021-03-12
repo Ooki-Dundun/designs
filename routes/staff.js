@@ -34,7 +34,7 @@ router.get('/search', pSR, (req, res, next) => {
 
 //display one product
 router.get('/product/:id', pSR, (req, res, next) => {
-  ProductModel.findById(req.params.id).populate('editors').populate('serie')
+  ProductModel.findById(req.params.id).populate('editors').populate('serie').populate('designer')
   .then((product) => {
     CommentModel.find({product: product._id}).populate('author')
     .then((comments) => res.render('./../views/users/3staff/4productinfo.hbs', {product, comments}))
