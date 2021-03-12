@@ -9,7 +9,9 @@ module.exports = function showLoginStatus(req, res, next) {
     res.locals.isLoggedIn = true;
     res.locals.isDesigner = req.session.currentUser.role === "Designer";
     res.locals.isEditor = req.session.currentUser.role === "Editor";
-    res.locals.isStaff = (req.session.currentUser.role !=="Designer" && req.session.currentUser.role !== "Editor" );
+    res.locals.isStaff =
+      req.session.currentUser.role !== "Designer" &&
+      req.session.currentUser.role !== "Editor";
   }
   next();
 };

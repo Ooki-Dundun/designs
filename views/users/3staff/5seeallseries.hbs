@@ -1,18 +1,19 @@
 <div class="main">
-<div id="series-container">
-     <table id="series-table">
-        <tr>
-            <th>Season</th>
-            <th>Year</th>
-            <th>Products</th>
-        </tr>
-        {{#each series}}
-        <tr>
-            <td>{{this.season}}</td>
-            <td>{{this.year}}</td>
-            <td><a href="/staff/series/{{this._id}}"><img src="/images/products.png" alt="Products" class="icon"></a></td>
-        </tr>
-        {{/each}}
-    </table>
-</div>
+    <div id="series-container">
+        <table id="series-table">
+            <tr>
+                <th>Season</th>
+                <th>Year</th>
+                <th>Products</th>
+            </tr>
+            {{#each series}}
+            <tr>
+                <td>{{this.season}}</td>
+                <td>{{this.year}}</td>
+                <td><a href="/staff/series/{{this._id}}"><img src="/images/products.png" alt="Products"
+                            class="icon"></a></td>
+            </tr>
+            {{/each}}
+        </table>
+    </div>
 </div>

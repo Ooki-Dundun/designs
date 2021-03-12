@@ -1,32 +1,33 @@
 {{#if isLoggedIn}}
 <div class="options">
-      <div class="left">
-          {{#if isDesigner}}
-          <a href="/head"><img src="/images/allproducts.png" alt="All Designs"class="icon"></a>
-          {{/if}}
-          {{#if isEditor}}
-          <a href="/editor"><img src="/images/allproducts.png" alt="All Desgins"class="icon"></a>
-          {{/if}}
-          {{#if isStaff}}
-          <a href="/staff"><img src="/images/allproducts.png" alt="All Desgins"class="icon"></a>
-          {{/if}}
-          {{#if isLoggedIn}}
-          <a href="/staff/search/products"><img src="/images/search.png" alt="Search Products" class="icon"></a>
-          {{/if}}
-          {{#if isDesigner}}
-          <a href="/head/add-product"><img src="/images/addproduct.png" alt="Add design" class="icon"></a>
-          <a href="/head/series"><img src="/images/seasons.png" alt="Collections" class="icon"></a>
-          <a href="/head/manage-rights"><img src="/images/managerights.png" alt="Manage rights" class="icon"></a>
-          {{/if}}
-          {{#if isEditor}}
-          <a href="/staff/series"><img src="/images/seasons.png" alt="Collections" class="icon"></a>
-          <a href="/editor/{{currentUser._id}}/my-products"><img src="/images/products.png" alt="My products" class="icon"></a>
-      <!-- <a href="/editor/{{currentUser._id}}/collections"><img src="/images/seasons.png" alt="Collections" class="icon"></a>> -->
-          {{/if}}
-          {{#if isStaff}}
-          <a href="/staff/series"><img src="/images/seasons.png" alt="Collections" class="icon"></a>
-          {{/if}}
-          <a href="/staff/search/users"><img src="/images/searchpeople.png" alt="People" class="icon"></a>
-      </div>
+    <div class="left">
+        {{#if isDesigner}}
+        <a href="/head"><img src="/images/allproducts.png" alt="All Designs" class="icon"></a>
+        {{/if}}
+        {{#if isEditor}}
+        <a href="/editor"><img src="/images/allproducts.png" alt="All Desgins" class="icon"></a>
+        {{/if}}
+        {{#if isStaff}}
+        <a href="/staff"><img src="/images/allproducts.png" alt="All Desgins" class="icon"></a>
+        {{/if}}
+        {{#if isLoggedIn}}
+        <a href="/staff/search/products"><img src="/images/search.png" alt="Search Products" class="icon"></a>
+        {{/if}}
+        {{#if isDesigner}}
+        <a href="/head/add-product"><img src="/images/addproduct.png" alt="Add design" class="icon"></a>
+        <a href="/head/series"><img src="/images/seasons.png" alt="Collections" class="icon"></a>
+        <a href="/head/manage-rights"><img src="/images/managerights.png" alt="Manage rights" class="icon"></a>
+        {{/if}}
+        {{#if isEditor}}
+        <a href="/staff/series"><img src="/images/seasons.png" alt="Collections" class="icon"></a>
+        <a href="/editor/{{currentUser._id}}/my-products"><img src="/images/products.png" alt="My products"
+                class="icon"></a>
+        <!-- <a href="/editor/{{currentUser._id}}/collections"><img src="/images/seasons.png" alt="Collections" class="icon"></a>> -->
+        {{/if}}
+        {{#if isStaff}}
+        <a href="/staff/series"><img src="/images/seasons.png" alt="Collections" class="icon"></a>
+        {{/if}}
+        <a href="/staff/search/users"><img src="/images/searchpeople.png" alt="People" class="icon"></a>
+    </div>
 </div>
 {{/if}}

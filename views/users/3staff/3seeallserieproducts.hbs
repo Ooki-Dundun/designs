@@ -1,35 +1,35 @@
 <div class="main">
-<div id="serie-products">
-    <div>{{serie.season}} {{serie.year}}</div>
-      <table id="serie-products-table">
-        <tr>
-            <th>Images</th>
-            <th>Name</th>
-            <th>Color</th>
-            <th>Material</th>
-            <th>Status</th>
-            <th>Internal Notes</th>
-            <th>Designer</th>
-            <th>Editors</th>
-        </tr>
-        {{#each products}}
-        <tr>
-            <td><img src="{{last this.images}}" alt="most recent image" class="design-image"></td>
-            <td>{{this.name}}</td>
-            <td>{{this.color}}</td>
-            <td>{{this.material}}</td>
-            <td>{{this.status}}</td>
-            <td>{{this.internalNotes}}</td>
-            <td>{{this.designer.firstName}} {{this.designer.lastName}}</td>
-            <td>
-                <ul>
-                    {{#each this.editors}}
-                    <li>{{this.firstName}} {{this.lastName}}</li>
-                    {{/each}}
-                </ul>
-            </td>
-        </tr>
-        {{/each}}
-    </table>
-</div>
+    <div id="serie-products">
+        <div>{{serie.season}} {{serie.year}}</div>
+        <table id="serie-products-table">
+            <tr>
+                <th>Images</th>
+                <th>Name</th>
+                <th>Color</th>
+                <th>Material</th>
+                <th>Status</th>
+                <th>Internal Notes</th>
+                <th>Designer</th>
+                <th>Editors</th>
+            </tr>
+            {{#each products}}
+            <tr>
+                <td><img src="{{last this.images}}" alt="most recent image" class="design-image"></td>
+                <td>{{this.name}}</td>
+                <td>{{this.color}}</td>
+                <td>{{this.material}}</td>
+                <td>{{this.status}}</td>
+                <td>{{this.internalNotes}}</td>
+                <td>{{this.designer.firstName}} {{this.designer.lastName}}</td>
+                <td>
+                    <ul>
+                        {{#each this.editors}}
+                        <li>{{this.firstName}} {{this.lastName}}</li>
+                        {{/each}}
+                    </ul>
+                </td>
+            </tr>
+            {{/each}}
+        </table>
+    </div>
 </div>

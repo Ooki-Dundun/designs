@@ -1,41 +1,41 @@
 <div class="main">
-<h1>My products</h1>
-<div id="my-designs">
-    <table id="designs-table">
-        <tr>
-            <th>Most recent image</th>
-            <th>Name</th>
-            <th>Category</th>
-            <th>Collection</th>
-            <th>Material</th>
-            <th>Color</th>
-            <th>Status</th>
-            <th>Editors</th>
-            <th>Edit</th>
-        </tr>
-        {{#each products}}
-        <tr>
-            <td>
-                <a href="/staff/product/{{this._id}}">
-                <img src="{{last this.images}}" alt="image"
-                </a>
-            </td>
-            <td>{{this.name}}</td>
-            <td>{{this.category}}</td>
-            <td>{{this.serie.season}} {{this.serie.year}}</td>
-            <td>{{this.material}}</td>
-            <td>{{this.color}}</td>
-            <td>{{this.status}}</td>
-            <td>
-                <ul>
-                    {{#each this.editors}}
-                    <li>{{this.firstName}} {{this.lastName}}</li>
-                    {{/each}}
-                </ul>
-            </td>
-            <td><a href="/editor/edit-product/{{this._id}}"><img src="/images/editicon.png" alt="Edit" class="icon"></a></td>
-        </tr>
-        {{/each}}
-    </table>
-</div>
+    <h1>My products</h1>
+    <div id="my-designs">
+        <table id="designs-table">
+            <tr>
+                <th>Most recent image</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Collection</th>
+                <th>Material</th>
+                <th>Color</th>
+                <th>Status</th>
+                <th>Editors</th>
+                <th>Edit</th>
+            </tr>
+            {{#each products}}
+            <tr>
+                <td>
+                    <a href="/staff/product/{{this._id}}">
+                        <img src="{{last this.images}}" alt="image" </a>
+                </td>
+                <td>{{this.name}}</td>
+                <td>{{this.category}}</td>
+                <td>{{this.serie.season}} {{this.serie.year}}</td>
+                <td>{{this.material}}</td>
+                <td>{{this.color}}</td>
+                <td>{{this.status}}</td>
+                <td>
+                    <ul>
+                        {{#each this.editors}}
+                        <li>{{this.firstName}} {{this.lastName}}</li>
+                        {{/each}}
+                    </ul>
+                </td>
+                <td><a href="/editor/edit-product/{{this._id}}"><img src="/images/editicon.png" alt="Edit"
+                            class="icon"></a></td>
+            </tr>
+            {{/each}}
+        </table>
+    </div>
 </div>

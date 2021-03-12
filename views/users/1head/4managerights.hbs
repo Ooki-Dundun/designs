@@ -1,24 +1,26 @@
 <div class="main">
-<div id="users">
-    <table id="users-table">
-        <tr>
-            <th>Full name</th>
-            <th>Team</th>
-            <th>Role</th>
-            <th>Change team and/or role</th>
-            <th>Delete</th>
-        </tr>
-        {{#each users}}
-        {{#unless @first}}
-        <tr>
-            <td>{{this.firstName}} {{this.lastName}}</td>
-            <td>{{this.team}}</td>
-            <td>{{this.role}}</td>
-            <td><a href="/head/manage-rights/{{this._id}}"><img src="/images/editicon.png" alt="Edit" class="icon"></a></td>
-            <td><a href="/head/manage-rights/delete/{{this._id}}"><img src="/images/delete.png" alt="Delete" class="icon"></a></td>
-        </tr>
-        {{/unless}}
-        {{/each}}
-    </table>
-</div>
+    <div id="users">
+        <table id="users-table">
+            <tr>
+                <th>Full name</th>
+                <th>Team</th>
+                <th>Role</th>
+                <th>Change team and/or role</th>
+                <th>Delete</th>
+            </tr>
+            {{#each users}}
+            {{#unless @first}}
+            <tr>
+                <td>{{this.firstName}} {{this.lastName}}</td>
+                <td>{{this.team}}</td>
+                <td>{{this.role}}</td>
+                <td><a href="/head/manage-rights/{{this._id}}"><img src="/images/editicon.png" alt="Edit"
+                            class="icon"></a></td>
+                <td><a href="/head/manage-rights/delete/{{this._id}}"><img src="/images/delete.png" alt="Delete"
+                            class="icon"></a></td>
+            </tr>
+            {{/unless}}
+            {{/each}}
+        </table>
+    </div>
 </div>
