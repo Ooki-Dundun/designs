@@ -1,11 +1,17 @@
+<div class="main">
 <div>
-    <form method="post" action="/head/edit-product/{{product._id}}" enctype="multipart/form-data">
+    <form method="post" action="/head/edit-product/{{product._id}}" enctype="multipart/form-data" class="edit-add-design">
+    <div>
         <label for="name">Name</label>
         <input type="text" name='name' value="{{product.name}}">
+         </div>
+          <div>
         <label for="designer">Designer</label>
         <select name="designer">
             <option value="{{product.designer._id}}">{{product.designer.firstName}} {{product.designer.lastName}}</option>
         </select>
+         </div>
+          <div>
         <label for="editors">Add new editors</label>
          <select name="editors">
             {{#each users}}
@@ -31,6 +37,8 @@
             {{/each}}
             <option value="n/a">Not applicable</option>
         </select>
+         </div>
+          <div>
         <label for="category">Category</label>
         <select name="category">
             <option value="Top">Top</option>
@@ -40,27 +48,42 @@
             <option value="Shoes">Shoes</option>
             <option value="Other">Other</option>
         </select>
+         </div>
+          <div>
         <label for="color">Color</label>
         <input type="text" name="color" value="{{product.color}}">
+        </div>
+         <div>
+        <label for="material">Material</label>
         <select name="material">
-            <option value="coton">Coton</option>
-            <option value="silk">Silk</option>
-            <option value="leather">Leather</option>
-            <option value="wool">Wool</option>
-            <option value="other">Other</option>
+            <option value="Coton">Coton</option>
+            <option value="Silk">Silk</option>
+            <option value="Leather">Leather</option>
+            <option value="Wool">Wool</option>
+            <option value="Other">Other</option>
         </select>
+        </div>
+         <div>
         <label for="serie">Collection</label>
         <select name="serie">
             {{#each series}}
             <option value="{{this._id}}">{{this.season}} {{this.year}}</option>
             {{/each}}
         </select>
+         </div>
+          <div>
         <label for="status">Status</label>
         <input type="text" name="status" value={{product.status}}>
+         </div>
+          <div>
         <label for="internalNotes">Internal notes</label>
         <input type="text" name="internalNotes" value="{{product.internalNotes}}">
+        </div>
+         <div>
         <label for="image">Add new image</label>
         <input type="file" name="image">
+        </div>
         <button type="submit">Update information</button>
     </form>
+</div>
 </div>

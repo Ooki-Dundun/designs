@@ -1,24 +1,16 @@
-<nav>
-    {{#unless isLoggedIn}}
-    <a href="/">Home</a>
-    {{/unless}}
-    <a href="/About">About</a>
-    <a href="/Contact">Contact</a>
-    {{#unless isLoggedIn}}
-    <a href="/auth/signup">Sign up</a>
-    {{/unless}}
-    {{#if isDesigner}}
-    <a href="/head">My page</a>
-    {{/if}}
-    {{#if isEditor}}
-    <a href="/editor">Editor's page</a>
-    {{/if}}
-    {{#if isStaff}}
-    <a href="/staff">Staff's page</a>
-    {{/if}}
-    {{#if isLoggedIn}}
-    <a href="/auth/log-out">Log out</a>
-    {{/if}}
-</nav>
-    
+<header>
+    <nav>
+        {{#unless isLoggedIn}}
+        <a href="/"><img src="/images/home.png" class="icon"></a>
+        {{/unless}}
+        <a href="/About"><img src="/images/about.png" class="icon"></a>
+        <a href="/Contact"><img src="/images/contact.png" class="icon"></a>
+        {{#unless isLoggedIn}}
+        <a href="/auth/signup" class="right"><img src="/images/signup.png" class="icon"></a>
+        {{/unless}}
+        {{#if isLoggedIn}}
+        <a href="/auth/log-out" class="right"><img src="/images/logout.png" alt="Log out" class="icon"></a>
+        {{/if}}
+    </nav>
+</header>
     

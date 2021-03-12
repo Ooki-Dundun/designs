@@ -1,3 +1,4 @@
+<div class="main">
 <div id="serie-products">
     <div>{{serie.season}} {{serie.year}}</div>
       <table id="serie-products-table">
@@ -13,7 +14,7 @@
         </tr>
         {{#each products}}
         <tr>
-            <td><img src="{{last this.images}}" alt="most recent image"></td>
+            <td><img src="{{last this.images}}" alt="most recent image" class="design-image"></td>
             <td>{{this.name}}</td>
             <td>{{this.color}}</td>
             <td>{{this.material}}</td>
@@ -30,4 +31,5 @@
         </tr>
         {{/each}}
     </table>
+</div>
 </div>

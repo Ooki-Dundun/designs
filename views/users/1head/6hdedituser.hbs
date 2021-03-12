@@ -1,5 +1,6 @@
+<div class="main edit-user">
 <div>
-    <div>Full name: {{user.firstName}} {{user.lastName}}</div>
+    <div id="full-name">Full name: {{user.firstName}} {{user.lastName}}</div>
     <form method="post" action="/head/manage-rights/{{user._id}}">
     <label for="role">Role</label>
     <select name="role">
@@ -14,6 +15,7 @@
         <option value="Global">Global</option>
         <option value="None">None</option>
     </select>
-    <button>edit</button>
+    <button><img src="/images/editicon.png" alt="Edit" class="icon"></button>
     </form>
+</div>
 </div>

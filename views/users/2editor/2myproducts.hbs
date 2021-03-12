@@ -1,3 +1,4 @@
+<div class="main">
 <h1>My products</h1>
 <div id="my-designs">
     <table id="designs-table">
@@ -10,6 +11,7 @@
             <th>Color</th>
             <th>Status</th>
             <th>Editors</th>
+            <th>Edit</th>
         </tr>
         {{#each products}}
         <tr>
@@ -31,8 +33,9 @@
                     {{/each}}
                 </ul>
             </td>
-            <td><a href="/editor/edit-product/{{this._id}}">edit</a></td>
+            <td><a href="/editor/edit-product/{{this._id}}"><img src="/images/editicon.png" alt="Edit" class="icon"></a></td>
         </tr>
         {{/each}}
     </table>
+</div>
 </div>

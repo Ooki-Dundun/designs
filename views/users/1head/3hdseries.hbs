@@ -1,5 +1,5 @@
-<div id="new-serie-container">
-    <form method="post" action="/head/series">
+<div class="main">
+    <form method="post" action="/head/series" id="new-serie-container"> 
         <label for="season">Season</label>
             <select name="season">
                 <option value="Winter">Winter</option>
@@ -11,22 +11,23 @@
         <input type="text" name="year">
         <button>Add new collection</button>
     </form>
-</div>
 
 <div id="series-container">
      <table id="series-table">
         <tr>
             <th>Season</th>
             <th>Year</th>
+            <th>Products</th>
             <th>Delete</th>
         </tr>
         {{#each series}}
         <tr>
             <td>{{this.season}}</td>
             <td>{{this.year}}</td>
-            <td><a href="/staff/series/{{this._id}}">Products</a></td>
-            <td><a href="/head/series/{{this._id}}">Delete</a></td>
+            <td><a href="/staff/series/{{this._id}}"><img src="/images/products.png" alt="Products"  class="icon"></a></td>
+            <td><a href="/head/series/{{this._id}}"><img src="/images/delete.png" alt="Delete" class="icon"></a></td>
         </tr>
         {{/each}}
     </table>
 </div>
+<div class="main">

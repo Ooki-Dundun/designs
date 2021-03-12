@@ -1,8 +1,323 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  z-index: -1;
+  /* border: 1px solid black; */
+}
+
+/* add background image
+html {
+  background: url("./../images/mainpagebackground.jpeg");
+  background-size: cover;
+}
+*/
+
 body {
+  margin: 0;
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  margin-top: 100px;
+  width: 100vw;
+  position: absolute
+}
+
+.icon {
+  width: 60px;
+  height: 60px;
+}
+
+li {
+  list-style-type: none;
 }
 
 a {
-  color: #00B7FF;
+  cursor: pointer;
+}
+
+/* NAV */
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  align-items: center;
+  height: 100px;
+  justify-content: space-between;
+}
+
+nav {
+  background: #1e88eb9d;
+  height: 80px;
+  margin-top: 10px;
+  left: 0;
+  width: 100vw;
+  z-index: 1;
+}
+
+nav a {
+  position: relative;
+  margin-top: 15px;
+  width: 60px;
+  height: 60px;
+  border-radius: 25%;
+  z-index: 1;
+}
+
+nav a.right {
+  margin-left: 80vw;
+  z-index: 1;
+}
+
+nav a img {
+  margin-top: 10px;
+  border-radius: 25%;
+  z-index: 1;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+}
+
+/* OPTIONS */
+
+.options {
+  position: relative;
+  top: 0px;
+  left: 150px;
+  padding: 0;
+  height: 95px;
+  width: 400px;
+}
+
+.options a img {
+  margin-top: 12.5px;
+  border-radius: 25%
+}
+
+/* ALL PAGES */
+
+.main {
+  position: relative;
+  width: 100vw;
+  margin-top: 35px;
+  left: 150px;
+  height: 150px;
+}
+
+
+/* HOME PAGE */
+
+
+#log-in-form {
+  width: 70vw;
+  margin: 0;
+}
+
+.form-div {
+  margin-top: 20px;
+  width: 40vw;
+  margin-right: 0;
+}
+
+.login-label-input {
+  font-size: 23px;
+  height: 46px;
+  width: 25vw;
+  padding: 10px;
+}
+
+#login-btn {
+  width: 200px;
+  height: 75px;
+  border-radius: 25%;
+  font-size: 23px;
+  color: white;
+  margin-top: 20px;
+  margin-left: 17vw;
+  background-color: #1e88eb9d;
+}
+
+/* ABOUT */
+.flex-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.about * {
+  margin: 15px;
+}
+
+.about div {
+  font-size: 17px;
+  width: 80vw;
+}
+/* CONTACT */
+
+.contact {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact * {
+  margin: 15px;
+}
+
+.contact div {
+  font-size: 17px;
+  width: 80vw;
+}
+
+.contact button {
+  margin: 0;
+  width: 100px;
+  height: 80px;
+  color: white;
+  background-color: #1e88eb9d;
+  border-radius: 25%;
+  font-size: 23px;
+}
+
+/* SIGN UP */
+
+#sign-up-container * {
+  width: 25vw;
+  margin: 5px;
+}
+
+#sign-up-container button {
+  margin: 0;
+  width: 100px;
+  height: 80px;
+  color: white;
+  background-color: #1e88eb9d;
+  border-radius: 25%;
+  font-size: 23px;
+  margin-left: 9.5vw
+}
+
+/* ALL TABLES */
+
+th {
+  border: 1px solid #1e88eb9d;
+  text-align: center;
+  width: 120px;
+  height: 40px;
+  padding: 5px;
+  font-size: 15px;
+}
+
+td {
+  border: 1px solid #1e88eb9d;
+  text-align: center;
+  width: 120px;
+  height: 100px;
+  font-size: 17px;
+}
+
+/* SERIES (COLLECTION) PAGE */
+#new-serie-container * {
+  width: 100px;
+  height: 30px;
+  font-size: 17px;
+}
+
+#new-serie-container button {
+  width: 150px;
+  color: white;
+  background-color: #1e88eb9d;
+  border-radius: 25%;
+  font-size: 17px;
+  margin-left: 15px;
+}
+
+#series-container {
+  margin-top: 20px;
+}
+
+/* ADD NEW DESIGN (PRODUCT) & EDIT A PRODUCT PAGE */
+
+.edit-add-design * {
+  margin-top: 5px;
+  font-size: 17px;
+}
+
+.edit-add-design button {
+  width: 150px;
+  color: white;
+  background-color: #1e88eb9d;
+  border-radius: 25%;
+  font-size: 17px;
+  margin-left: 15px;
+}
+
+/* SEARCH PRODUCT PAGE */
+.search * {
+  margin: 10px;
+}
+
+#result-container {
+  width: 100 vw;
+}
+
+#results-container > * {
+  float: left;
+  width: 150px;
+  border: 1px solid #1e88eb9d;
+}
+
+.product-image {
+  width: 100px;
+  height: 100px;
+}
+
+.product-info {
+  margin: 0;
+  padding: 2px
+}
+
+/* HEAD DESIGNER PAGE */
+
+.design-image {
+  width: 100px;
+  height: 100px;
+}
+
+/* PRODUCT INFO */
+.product-info {
+  display: flex;
+  flex-direction: row;
+  width: 90vw
+}
+
+#product-info-container {
+  display: flex;
+  flex-direction: column;
+  width: 700px;
+  margin: 0;
+}
+
+/* COMMENTS */
+#comments-container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin: 0;
+  width: 400px
+}
+
+#send-btn {
+  width: 150px;
+  color: white;
+  background-color: #1e88eb9d;
+  border-radius: 25%;
+  font-size: 17px;
+  margin-left: 15px;
+}
+
+/* EDIT USER PAGE */
+.edit-user {
+  margin: 10px;
+  font-size: 17px
 }

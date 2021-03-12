@@ -1,5 +1,5 @@
 
-
+<div class="main">
 <div id="my-designs">
     <table id="designs-table">
         <tr>
@@ -11,14 +11,14 @@
             <th>Color</th>
             <th>Status</th>
             <th>Editors</th>
-            <th>edit</th>
-            <th>delete</th>
+            <th>Edit</th>
+            <th>Delete</th>
         </tr>
         {{#each products}}
         <tr>
             <td>
                 <a href="/staff/product/{{this._id}}">
-                <img src="{{last this.images}}" alt="image"
+                <img src="{{last this.images}}" alt="image" class="design-image">
                 </a>
             </td>
             <td>{{this.name}}</td>
@@ -34,9 +34,10 @@
                     {{/each}}
                 </ul>
             </td>
-            <td><a href="/head/edit-product/{{this._id}}">edit</a></td>
-            <td><a href="/head/delete-product/{{this._id}}">delete</a></td>
+            <td><a href="/head/edit-product/{{this._id}}"><img src="/images/editicon.png" alt="Edit" class="icon"></a></td>
+            <td><a href="/head/delete-product/{{this._id}}"><img src="/images/delete.png" alt="Delete"  class="icon"></a></td>
         </tr>
         {{/each}}
     </table>
+</div>
 </div>

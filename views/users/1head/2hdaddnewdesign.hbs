@@ -1,7 +1,11 @@
+<div class="main">
 <div>
-    <form method="post" action="/head/add-product" enctype="multipart/form-data">
+    <form method="post" action="/head/add-product" enctype="multipart/form-data" class="edit-add-design">
+    <div>
         <label for="name">Name</label>
         <input type="text" name='name'>
+        </div>
+        <div>
         <label for="designer">Designer</label>
         <select name="designer">
             {{#each designers}}
@@ -33,6 +37,8 @@
             {{/each}}
             <option value="n/a">Not applicable</option>
         </select>
+        </div>
+        <div>
         <label for="category">Category</label>
         <select name="category" required>
             <option value="Top">Top</option>
@@ -42,36 +48,41 @@
             <option value="Shoes">Shoes</option>
             <option value="Other">Other</option>
         </select>
+        </div>
+        <div>
         <label for="color">Color</label>
         <input type="text" name="color" required>
         <select name="material" required>
-            <option value="coton">Coton</option>
-            <option value="silk">Silk</option>
-            <option value="leather">Leather</option>
-            <option value="wool">Wool</option>
-            <option value="other">Other</option>
+            <option value="Coton">Coton</option>
+            <option value="Silk">Silk</option>
+            <option value="Leather">Leather</option>
+            <option value="Wool">Wool</option>
+            <option value="Other">Other</option>
         </select>
+        </div>
+        <div>
         <label for="serie">Collection</label>
         <select name="serie" required>
             {{#each series}}
             <option value="{{this._id}}">{{this.season}} {{this.year}}</option>
             {{/each}}
         </select>
+        </div>
+        <div>
         <label for="status">Status</label>
         <input type="text" name="status" required>
+        </div>
+        <div>
         <label for="internalNotes">Internal notes</label>
         <input type="text" name="internalNotes" required>
+        </div>
+        <div>
         <label for="image">Add new image</label>
         <input type="file" name="image">
+        </div>
+        <div>
         <button type="submit">Add design to database</button>
+        </div>
     </form>
 </div>
-
-
-
-<!-- enctype="multipart/form-data" -->
-
-   <!--
-        <label for="image">Add new image</label>
-        <input type="file" name="image">
-        -->
+</div>

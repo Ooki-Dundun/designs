@@ -62,13 +62,12 @@ function displayResults(products) {
     products.forEach((product) => {
         resultsContainer.innerHTML += `
         <div>
-          <div>
-          <a href="/staff/product/${product._id}">
-          <img src="${product.images[product.images.length - 1]}" alt="most recent image of product">
-          </a>
-          </div>
-          <div>${product.name}</div>
-          <div>${product.serie.season} ${product.serie.year}</div>
+                <a href="/staff/product/${product._id}">
+                    <img src="${product.images[product.images.length - 1]}" alt="most recent image of product" class="product-image">
+                </a>
+                <div class="product-info">${product.name}</div>
+                <div class="product-info">${product.serie.season} ${product.serie.year}</div>
+
         </div>`
     })
 }

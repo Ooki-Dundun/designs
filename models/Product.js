@@ -26,7 +26,7 @@ const productSchema = new mongoose.Schema({
     material: {
         type: String,
         required: true,
-        enum: ['coton', 'silk', 'leather', 'wool', 'other']
+        enum: ['Coton', 'Silk', 'Leather', 'Wool', 'Other']
     },
     serie: {
         type: mongoose.Schema.Types.ObjectId, ref: 'series',
