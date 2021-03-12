@@ -8,7 +8,8 @@ const SerieModel = require('../models/Serie');
 const CommentModel = require('./../models/Comment')
 
 // require protect staff route middleware
-const pSR = require('./../middlewares/protectstaffroute')
+const pSR = require('./../middlewares/protectstaffroute');
+const UserModel = require('../models/User');
 
 // get products
 router.get('/', pSR, (req, res, next) => {
@@ -28,7 +29,7 @@ router.get('/series', pSR, (req, res, next) => {
 
 
 // get the search product(s) page
-router.get('/search', pSR, (req, res, next) => {
+router.get('/search/products', pSR, (req, res, next) => {
   res.render('./../views/users/3staff/2searchproducts.hbs')
 })
 
@@ -43,7 +44,7 @@ router.get('/product/:id', pSR, (req, res, next) => {
 });
 
 // add comments to a product 
-router.post('/product/:id/', (req, res, next) => {
+router.post('/product/:id', (req, res, next) => {
  console.log("req.params is : ", req.params);
  console.log("req.body is : ", req.body);
  console.log(req.session)
@@ -53,7 +54,6 @@ router.post('/product/:id/', (req, res, next) => {
     content: req.body.content,
     date: req.body.date
   })
-  // need to find comment to populate to be able to populate editor to include comments container front end
   .then((comment) => {
     CommentModel.findById(comment._id).populate('author')
     .then((commentWithAuthor) => {
@@ -63,6 +63,20 @@ router.post('/product/:id/', (req, res, next) => {
     .catch((err) => res.status(500).json(err))
   })
 });
+
+// get the search people page
+router.get('/search/users', pSR, (req, res, next) => {
+  res.render('./../views/users/3staff/6searchstaff.hbs')
+})
+
+//get user info
+router.get('/users/:id', (req, res, next) => {
+  UserModel.findById(req.params.id)
+  .then((user) => {
+    res.render('./../views/users/3staff/7staffinfo.hbs', {user})
+  })
+  .catch((err) => next(err))
+})
 
 //get all products from a collection with editors
 router.get('/series/:id', pSR, (req, res, next) => {

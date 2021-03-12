@@ -70,7 +70,7 @@ app.use('/head', designerRouter);
 // use auth router
 app.use('/auth', authRouter);
 
-app.use('/api/products', require("./routes/api"));
+app.use('/api', require("./routes/api"));
 
 
 // app.use(require("./middlewares/exposeFlashMessages"));

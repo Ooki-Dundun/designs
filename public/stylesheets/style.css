@@ -257,11 +257,11 @@ td {
   margin: 10px;
 }
 
-#result-container {
+#result-container-products {
   width: 100 vw;
 }
 
-#results-container > * {
+#results-container-products > * {
   float: left;
   width: 150px;
   border: 1px solid #1e88eb9d;
@@ -275,6 +275,36 @@ td {
 .product-info {
   margin: 0;
   padding: 2px
+}
+
+/* SEARCH USER PAGE */
+
+.search * {
+  margin: 10px;
+}
+
+#result-container-users {
+  width: 100 vw;
+}
+
+#results-container-users > * {
+  float: left;
+  width: 150px;
+  border: 1px solid #1e88eb9d;
+}
+
+.user-info {
+  margin: 10;
+  padding: 2px
+}
+
+.user-info > h1 {
+  margin-bottom: 10px
+}
+
+.user-info li {
+  margin-top: 5px;
+  font-size: 20px;
 }
 
 /* HEAD DESIGNER PAGE */
