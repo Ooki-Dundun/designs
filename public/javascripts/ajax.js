@@ -151,3 +151,5 @@ if (inputSearchUsers)
     resetSearchResultUsers();
     handleReadUserSearch(evt, displayResultsUsers);
   };
+
+  /* pushing to get ip */
