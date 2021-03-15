@@ -152,4 +152,3 @@ if (inputSearchUsers)
     handleReadUserSearch(evt, displayResultsUsers);
   };
 
-  /* pushing to get ip */
