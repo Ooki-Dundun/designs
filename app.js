@@ -74,6 +74,8 @@ app.use("/auth", authRouter);
 
 app.use("/api", require("./routes/api"));
 
+
+
 // app.use(require("./middlewares/exposeFlashMessages"));
 
 // catch 404 and forward to error handler

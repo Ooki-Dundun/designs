@@ -39,6 +39,12 @@ router.get("/search/products", pSR, (req, res, next) => {
 
 //display one product
 router.get("/product/:id", pSR, (req, res, next) => {
+
+
+  //Promise.all([ProductModel.find(), CommentModel.find()]).then(([products,comments]) => {
+//
+  //})
+
   ProductModel.findById(req.params.id)
     .populate("editors")
     .populate("serie")
